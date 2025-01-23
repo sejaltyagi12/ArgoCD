@@ -1,0 +1,63 @@
+
+<div class="backgroundBanner full-height">
+  <div class="login-page-div">
+    <div class="login-page login-page-form">
+        <div class="text-center">
+          <div class="zeus-login"><img src="{{vm.constantValues.portalLogoPath}}" alt="LOGO" class="img-responsive"></div>
+        </div>
+        <div class="form forgotPass">
+            <form class="login-form" name="forgetPassForm" novalidate>
+                <div class="form-group" ng-init="blur=true">
+                  <span ng-show="(!forgetPassForm.emailId.$error.required && forgetPassForm.emailId.$error.pattern && blur)" class="reqErr">Please enter proper email</span></label>
+                  
+
+                  <input type="text" class="form-control" ng-class="{'errPassBorder': (forgetPassForm.emailId.$error.required || 
+                  forgetPassForm.emailId.$error.pattern) && forgetPassForm.$submitted}" name="emailId" placeholder="example@company.com" ng-model="vm.officialMail" ng-pattern="/^[_a-zA-Z0-9]+(\.[_a-zA-Z0-9]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,4})$/"  ng-blur="blur=true" ng-focus="blur=false" required/>
+                </div>
+                <div style="text-align: center;">
+                    <button  style="width:100%; background-color: #11597f;"  type="submit"  ng-click="forgetPassForm.$valid && vm.sendMail();">Submit</button>
+                </div>
+                <div class="text-center mt-10">
+                    <a ui-sref="page.login"  class="link-login"> Login?</a >
+                </div>
+            </form>
+            <br/>
+        </div>
+         
+    </div>
+    <div class="footerFixedBottom">
+        <p>For assistance please contact 
+            <a href="mailto:{{vm.constantValues.portalMailToId}}"  style="color:#fff;">{{vm.constantValues.portalMailToId}}</a >
+        </p>
+    </div>
+  </div>
+</div>
+
+<!-- Alert Modal -->
+<div class="modal" id="forgetPass-modal" >
+    <div class="modal-dialog modal-sm modal-alert">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div ng-if="vm.formSubmitted" class="alert alert-success" role="alert" width="100%">
+                    Password reset link has been sent to your email successfully
+                </div>
+                <div ng-if="vm.formSubmittedReset" class="alert alert-success" role="alert" width="100%">
+                    Password has been reset successfully
+                </div>
+               
+                <div ng-if="vm.formSubmitted==false && vm.message==undefined" class="alert alert-danger" role="alert" width="100%">
+                    Unable to process your request. Please retry or contact system admin
+                </div>
+
+                <div ng-if="vm.formSubmitted==false && vm.message != undefined && vm.message !=''" class="alert alert-danger" role="alert" width="100%">
+                    {{vm.message}}
+                </div>
+                
+                <button type="button" class="btn mt-10" data-dismiss="modal" style="color:#000">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

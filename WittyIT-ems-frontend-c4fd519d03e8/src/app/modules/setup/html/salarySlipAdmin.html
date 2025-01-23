@@ -1,0 +1,76 @@
+<div class="content-section" ng-init="vm.getInitialData()">
+    <div class="container-fluid">
+        <div class="salary-payslip-page">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3 class="dataTable-heading addBtn-btn">Salary & Payslip
+                        <button class="btn btnAdd-route" ui-sref="page.salarySlipUpload"> <i class="fa fa-plus"
+                                aria-hidden="true"></i></button>
+                    </h3>
+                    <div class="card-view">
+                        <div class="row">
+                            <div class="col-sm-8 col-sm-offset-2">
+                                <div class="form-group flex-inline">
+                                    <label class="empSearchLabel">Employee </label>
+                                    <div class="mydata">
+                                        <input max="2" type="text" name="managername" list="managername"
+                                            ng-model="vm.employee" class="form-control"
+                                            placeholder="Enter Employee Name"
+                                            ng-change="vm.employeeChanged(vm.employee)" required>
+                                        <datalist id="managername">
+
+                                            <option id="{{x.id}}" value="{{x.firstName + '(' + x.empCode + ')'}}"
+                                                ng-repeat="x in vm.employeeList track by $index"></option>
+
+                                        </datalist>
+                                    </div>
+                                </div>
+
+
+                                <div class="table-responsive" ng-if="vm.paySlip.length >0">
+                                    <table datatable="ng" class="table table-bordered" dt-options="vm.dtOptions"
+                                        dt-column-defs="vm.dtColumnDefs" class="row-border hover mb-10"
+                                        ng-if="vm.paySlip.length > 0">
+                                        <thead>
+                                            <tr>
+                                                <th style="display:none"></th>
+                                                <th class="relative">S.No</th>
+                                                <th class="relative">Month</th>
+                                                <th class="relative">Year</th>
+                                                <th>Action</th>
+                                                <th style="display:none"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="paySlip in vm.paySlip track by $index">
+                                                <td style="display:none"></td>
+                                                <td>{{$index+1}}</td>
+                                                <td>{{paySlip.month}}</td>
+                                                <td>{{paySlip.year}}</td>
+                                                <td>
+                                                    <button type="button" ng-hide="vm.showLoadingButton[$index]==true"
+                                                        class="btn primary-btn "
+                                                        ng-click="vm.downloadPaySlip($index,paySlip.id,paySlip.month,paySlip.year)">Download</button>
+
+                                                    <button style="background-color:#2C3E50 !important;"
+                                                        ng-show="vm.showLoadingButton[$index]" class="btn"><i
+                                                            class="fa fa-spinner fa-spin"></i> Loading</button>
+
+                                                </td>
+                                                <td style="display:none"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div ng-if="vm.paySlip.length <= 0" style="text-align:center">
+                                    <h4>No data available</h4>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,60 @@
+<div class="container-fluid" ng-init="vm.getInitialData()">
+    <!-- <div class="content-section content-background"> -->
+        <div class="team-resignation-page">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="dataTable-heading">Self Resignation History</h3>
+                    <!-- <div class="form-group mb-25 manageLeave"> -->
+                        <div class="table-responsive">
+
+                            <table class="table " datatable="ng" dt-options="vm.dtOptions" dt-column-defs="vm.dtColumnDefs" class="row-border hover mb-10" ng-if="vm.selfResignationData.length> 0">
+                                <thead>
+                                <tr >
+                                    <th style="display:none"></th>
+                                    <th class="relative">S.No <span class="border-left"></span></th>
+                                    <th class="relative">Emp Code <span class="border-left"></span></th>
+                                    <th class="relative">Name <span class="border-left"></span></th>
+                                    <th class="relative">Resignation Date <span class="border-left"></span></th>
+                                    <th class="relative">Last Day  <span class="border-left"></span></th>
+                                    <th class="relative">Types of Exit <span class="border-left"></span></th>
+                                    <th class="relative">Reason <span class="border-left"></span></th>
+                                    <th class="relative">Hr Status  <span class="border-left"></span></th>
+                                    <th>Manager Status</th>
+                                    <th style="display:none"></th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr  ng-repeat="resign in vm.selfResignationData track by $index">
+                                    <td style="display:none"></td>
+                                    <td>{{$index+1}}</td>
+                                    <td>{{resign.employeeCode}}</td>
+                                    <td>{{resign.employeeName}}</td>
+                                    <td>{{resign.resignationDate}}</td>
+                                    <td>{{resign.lastDay}}</td>
+                                    <td>{{resign.type.type}}</td>
+                                    <td>{{resign.reason.reason}}</td>
+                                    <td>
+                                        <p><b><a ui-sref="page.subordinateResignationDetail({id: resign.id , view:'self'})" >{{resign.hrStatus}}</a></b></p>
+                                    </td>
+                                    <td>{{resign.managerStatus}}</td>
+                                    <td style="display:none"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <div  ng-if="vm.selfResignationData.length <= 0" style="text-align:center">
+                               <h4>No data available</h4>
+                            </div>
+
+                            <div class="text-center">
+                                <button class="btn primary-btn" type="button" ng-click="vm.goToPreviousPage()">Cancel</button>
+                            </div>
+
+                        </div>
+                    <!-- </div> -->
+                </div>
+            </div>
+        </div>
+    <!-- </div> -->
+</div>

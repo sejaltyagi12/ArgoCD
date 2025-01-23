@@ -1,0 +1,72 @@
+<div class="container-fluid" ng-init="vm.initialData()">
+    <div class="content-section content-background">
+        <div class="registration-page">
+            <div class="row">
+                
+                <h2 class="title">Resign</h2>
+
+                <div class="col-md-8 col-md-offset-2 mb-25">
+                    <form name="resignForm" novalidate>
+
+                        <div class="form-group">
+                            <textarea ng-class="{'highlightErr': feedbackForm.description.$error.required
+                                && feedbackForm.$submitted}" class="form-control" style="height: 183px !important;" rows="3" name="description" id="description" ng-model="vm.resignData.resignationText" maxlength="499" required></textarea>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn primary-btn width-70" ng-click="resignForm.$valid && vm.resignSubmit();">Submit</button>
+                        </div>
+
+                    </form>
+                </div>
+
+                    
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="table-responsive resign-table">
+                        <table class="table-bordered" ng-if="vm.selfResignationDetail.length > 0">
+                            <thead>
+                                <tr>
+                                    <th style="width:20%;">Resignation Date</th>
+                                    <th>Resignation Detail</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="data in vm.selfResignationDetail track by $index">
+                                    <td>{{data.resignationDate}}</td>
+                                    <td>{{data.resignationText}}</td>    
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Alert Modal -->
+
+<div class="modal" id="self-Resignation-modal">
+
+    <div class="modal-dialog modal-sm modal-alert">
+        <div class="modal-content">
+            <div class="modal-body" >
+                <div  role="alert" width="100%">
+                    <div ng-if="vm.formSubmitted" class="alert alert-success" role="alert" width="100%">
+                       Resignation submitted successfully
+                    </div>
+
+                    <div ng-if="vm.formSubmitted==false && vm.message==undefined" class="alert alert-danger" role="alert" width="100%">
+                        Unable to process your request. Please retry or contact system admin
+                    </div>
+                    <div ng-if="vm.formSubmitted==false && vm.message != undefined && vm.message !=''" class="alert alert-danger" role="alert" width="100%">
+                        {{vm.message}}
+                    </div>
+
+                </div>
+                <button type="button" class="btn mt-10" data-dismiss="modal" style="color:#000">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,158 @@
+<div class="content-section" ng-init="vm.searchAll()">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group flex-inline">
+                    <label class="searchLabel">Company </label>
+                    <select class="form-control input-text-border" ng-model="vm.filters.companyId"
+                        ng-options="comp.companyId as comp.companyName for comp in vm.companyList | orderBy: 'companyName'"
+                        ng-change="vm.applyFilter()">
+                        <option value="" disabled>Filter by Company</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group flex-inline">
+                    <label class="searchLabel">Department </label>
+                    <select class="form-control input-text-border" ng-model="vm.filters.deptId"
+                        ng-options="dept.departmentId as dept.departmentName for dept in vm.departments | orderBy :'deptartmentName'"
+                        ng-change="vm.departmentChanged(vm.filters.deptId);vm.applyFilter();">
+                        <option value="" disabled>Filter by Department</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group flex-inline">
+                    <label class="searchLabel">Designation </label>
+                    <select class="form-control input-text-border" ng-model="vm.filters.designationId"
+                        ng-options="desgn.designationId as desgn.designation for desgn in vm.designations | orderBy:'designation' "
+                        ng-change="vm.applyFilter()">
+                        <option value="" disabled>Filter by Designation</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+
+                <h3 class="dataTable-heading">Employee List</h3>
+                <div class="card-view">
+
+                    <table class="table table-bordered" datatable="ng" dt-options="vm.dtOptions"
+                        dt-column-defs="vm.dtColumnDefs" class="row-border hover" ng-show="vm.userList.length > 0">
+                        <thead>
+                            <tr>
+                                <th style="display:none"></th>
+                                <th class="relative">Name </th>
+                                <th class="relative">Company </th>
+                                <th class="relative">Department </th>
+                                <th class="relative">Designation </th>
+                                <th class="relative">Joining Date </th>
+                                <th class="relative">Status </th>
+                                <th>Action</th>
+                                <th style="display:none"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="user in vm.userList">
+                                <td style="display:none"></td>
+                                <td>{{user.firstName +' '+user.middleName+' '+ user.lastName}}</td>
+                                <td>{{ user.companyName }}</td>
+                                <td>{{ user.departmentName }}</td>
+                                <td>{{ user.designation }}</td>
+                                <td>{{ user.joiningDate | date: 'dd/MM/yyyy' }}</td>
+                                <!-- <td  ng-if="user.isActive">Active</td>
+                                  <td ng-if="!user.isActive">Deactive</td> -->
+                                <td id="{{user.id}}_isActive">{{ user.isActive ? "Active" : "Inactive" }}</td>
+                                <!--   <td id="{{user.id}}_notActive" ng-if="!user.isActive || (vm.isActive != undefined && !vm.isActive)">Deactive</td> -->
+                                <td>
+
+                                    <div class="btn-group btn-group-sm emplActBtn">
+                                        <button type="button" class="btn btn-action dropdown-toggle"
+                                            data-toggle="dropdown">
+                                            ACTION<span class="caret ml-5"></span>
+                                        </button>
+                                        <ul class="dropdown-menu left-m15" role="menu">
+                                            <li>
+                                                <a ui-sref="page.registration({mode: 'v', id: user.id})">View</a>
+                                            </li>
+                                            <li>
+                                                <a ui-sref="page.leaveAccount({empId: user.id})">Leave Account</a>
+                                            </li>
+                                            <li ng-if="!user.isActive">
+                                                <a style="cursor: pointer;" ng-click="vm.activateOrDeactivateEmployee(user.id,user.isActive)">Activate</a>
+                                            </li>
+                                            <li ng-if="user.isActive">
+                                                <a ui-sref="page.changePass({id: user.id})">Reset Password</a>
+                                            </li>
+                                            <li ng-if="user.isActive" >
+                                                <a style="cursor: pointer;" ng-click="vm.activateOrDeactivateEmployee(user.id, user.isActive)">Deactivate</a>
+                                            </li>
+                                            <!-- <li>
+                                               <a  id="{{user.id}}_changeStatus" ng-click="vm.active(user.id)">{{user.isActive ? "Deactivate" : "Activate"}}</a>
+                                            </li> -->
+
+                                            <li ng-if="user.isActive" style="cursor:pointer;">
+                                                <a id="{{user.id}}_changeStatus"
+                                                    ng-click="vm.resign(user.id,user.firstName ,user.lastName)">{{user.isActive
+                                                    ? "Resigned" : "Edit Resignation"}}</a>
+                                            </li>
+
+                                            <!-- <li>
+                                              <a ng-if="user.isActive==true" ui-sref="page.resign({id: user.id})">Resign</a>
+                                            </li> -->
+
+                                            <!-- <li ng-if="user.isActive==true" >
+                                              <a  ng-click="vm.resign(user.id, user.firstName ,user.lastName)">Resignation</a>
+                                            </li>
+                                            <li ng-if="user.isActive==false">
+                                              <a ng-click="vm.resign(user.id,user.firstName ,user.lastName,user.resignationDate,user.resignationReason)">Edit Resignation</a>
+                                            </li> -->
+                                            <!--  <li ng-if="user.isActive==true">
+                                               <a  ng-click="vm.active(user.id,false)">Deactivate</a>
+                                            </li> -->
+                                        </ul>
+                                    </div>
+                                </td>
+                                <td style="display:none"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div ng-if="vm.userList.length === 0" style="text-align:center">
+                        <h4>No data available</h4>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Alert Modal -->
+
+<div class="modal" id="workForceManagement-modal">
+    <div class="modal-dialog modal-sm modal-alert">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div ng-if="vm.formSubmitted" class="alert alert-success" role="alert" width="100%">
+                    {{vm.activated}}
+                </div>
+
+                <div ng-if="vm.formSubmitted==false && vm.message==undefined" class="alert alert-danger" role="alert"
+                    width="100%">
+                    Unable to process your request. Please retry or contact system admin
+                </div>
+
+                <div ng-if="vm.formSubmitted==false && vm.message != undefined && vm.message !=''"
+                    class="alert alert-danger" role="alert" width="100%">
+                    {{vm.message}}
+                </div>
+
+                <button type="button" class="btn mt-10" data-dismiss="modal" style="color:#000">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>

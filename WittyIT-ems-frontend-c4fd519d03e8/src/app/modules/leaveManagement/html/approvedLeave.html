@@ -1,0 +1,162 @@
+<div class="content-section" ng-init="vm.getInitialData()">
+    <div class="container-fluid">
+        <div class="approve-leave-page">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="dataTable-heading">Approve Leave Application </h3>
+                    <div class="card-view">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" datatable="ng" id="example" dt-options="vm.dtOptions"
+                                dt-column-defs="vm.dtColumnDefs" class="row-border hover mb-10"
+                                ng-if="vm.leaveApplicationList.length> 0">
+                                <thead>
+                                    <tr>
+                                        <th style="display:none"></th>
+                                        <th class="relative">S.No </th>
+                                        <th class="relative">Leave(s) Apply Date</th>
+                                        <th class="relative">Employee Code </th>
+                                        <th class="relative">Name </th>
+                                        <th class="relative">From </th>
+                                        <th class="relative">To </th>
+
+                                        <th class="relative">Day Count </th>
+                                        <th class="relative">Deduction Details </th>
+                                        <th class="relative">Half/Full </th>
+                                        <th class="relative">Type </th>
+                                        <th class="relative">Comments </th>
+                                        <th class="relative">Manager Comments </th>
+                                        <th class="relative">Leave Status Date </th>
+                                        <th class="relative">Status </th>
+
+
+
+                                        <th style="display:none"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="leave in vm.leaveApplicationList track by $index">
+                                        <td style="display:none"></td>
+                                        <td>{{$index+1}}</td>
+                                        <td>{{leave.appliedDate | date: 'dd-MM-yyyy'}}</td>
+                                        <td>{{leave.empCode}}</td>
+                                        <td>{{leave.employeeName}}</td>
+                                        <td>{{leave.fromDate | date: 'dd-MM-yyyy'}}</td>
+                                        <td>{{leave.toDate | date: 'dd-MM-yyyy'}}</td>
+
+                                        <td>{{leave.dayCount}}</td>
+                                        <td>{{leave.deductionDetails}}</td>
+                                        <td ng-if="leave.dayCount == 0.5">half-day</td>
+                                        <td ng-if="leave.dayCount != 0.5">full-day</td>
+                                        <td>
+                                            <div class="link-download"
+                                                ng-if="leave.leaveType.type=='Sick Leave' && leave.attachmentUrl!= null">
+                                                <a
+                                                    ng-click="vm.download($index,leave.attachmentUrl,leave.employeeName,leave.empCode)">{{leave.leaveType.type}}</a>
+                                            </div>
+                                            <div ng-if="leave.attachmentUrl== null">
+                                                {{leave.leaveType.type}}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <!-- <div class="comment-hover" >
+                                    <P>{{leave.employeeComments.substring(0,10)+'...'}}</P>
+                                    <div class="commentText"  >
+                                        <p class="mb-0">{{leave.employeeComments}} &nbsp;</p>
+                                    </div>
+                                </div> -->
+                                            <div class="comment-hover">
+                                                <P ng-if="!vm.innerWidth ">
+                                                    {{leave.employeeComments.substring(0,5)}}<span
+                                                        ng-if="leave.employeeComments.length>5">...</span></P>
+                                                <P ng-if="vm.innerWidth ">
+                                                    {{leave.employeeComments.substring(0,10)}}<span
+                                                        ng-if="leave.employeeComments.length>10">...</span></P>
+                                                <span class="commentText" style="left:-80px ;word-break: break-all;"
+                                                    ng-class="{'change-width-size':(leave.employeeComments.length>60)}">
+                                                    <p class="mb-0">{{leave.employeeComments}}</p>
+                                                </span>
+                                            </div>
+
+
+                                        </td>
+
+                                        <td ng-if="leave.status!='PENDING' && leave.status!='WITHDRAWN'">
+                                            <div ng-if="leave.managerComments != null" class="comment-hover">
+                                                <P ng-if="!vm.innerWidth ">{{leave.managerComments.substring(0,5)}}<span
+                                                        ng-if="leave.managerComments.length>5">...</span></P>
+                                                <P ng-if="vm.innerWidth ">{{leave.managerComments.substring(0,10)}}<span
+                                                        ng-if="leave.managerComments.length>10">...</span></P>
+                                                <span class="commentText" style="left:-80px;word-break: break-all;"
+                                                    ng-class="{'change-width-size':(leave.managerComments.length>60)}">
+                                                    <p class="mb-0">{{leave.managerComments}} &nbsp;</p>
+                                                </span>
+                                            </div>
+                                        </td>
+
+                                        <td ng-if="leave.status=='PENDING' || leave.status=='WITHDRAWN' ">
+                                            <textarea ng-if="leave.status=='PENDING'"
+                                                class="form-control textarea-style" name="managerComments" id="comment"
+                                                ng-model="leave.managerComments[$index]" maxlength="270"
+                                                placeholder="Enter Comments"></textarea>
+                                        </td>
+                                        <td>{{leave.leaveStatusDate | date :'dd-MM-yyyy'}}</td>
+                                        <td ng-if="leave.status=='PENDING'">
+                                            <div class="btn-group btn-group-sm emplActBtn">
+                                                <button type="button" class="btn btn-action dropdown-toggle"
+                                                    data-toggle="dropdown">PENDING<span
+                                                        class="caret ml-5"></span></button>
+                                                <ul class="dropdown-menu left-m15" role="menu" style="cursor:pointer;">
+                                                    <li>
+                                                        <a
+                                                            ng-click="vm.approve(true,leave.id,leave.managerComments[$index],$index)">Approve</a>
+                                                    </li>
+                                                    <li>
+                                                        <a
+                                                            ng-click="vm.approve(false,leave.id,leave.managerComments[$index],$index)">Reject</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                        </td>
+                                        <td ng-if="leave.status!='PENDING'">
+
+                                            <div ng-if="leave.status==='APPROVED' && vm.user==='ADMIN'">
+                                                <div class="btn-group btn-group-sm emplActBtn">
+                                                    <button type="button" class="btn btn-action dropdown-toggle" data-toggle="dropdown">APPROVED<span
+                                                            class="caret ml-5"></span></button>
+                                                    <ul class="dropdown-menu left-m15" role="menu" style="cursor:pointer;">
+                                                        <li>
+                                                            <a ng-click="vm.approve(true, leave.id, leave.managerComments[$index], $index)">RevokeAfterApproval</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                            <div ng-if="leave.status!=='APPROVED' && leave.status!=='WITHDRAWN' && vm.user==='ADMIN'" class="status-div">
+                                                {{leave.status=='REJECTED' ? "Rejected" : "RevokeAfterApproval"}}
+                                            </div>
+                                            <div ng-if="leave.status=='REVOKED' && vm.user!='ADMIN'">Revoked</div>
+                                            <div ng-if="leave.status!='WITHDRAWN' && leave.status!=='REVOKED' && vm.user!='ADMIN'" class="status-div">
+                                                {{leave.status=='APPROVED' ? "Approved" : "Rejected"}}
+
+                                            </div>
+                                            <div ng-if="leave.status=='WITHDRAWN'">Withdrawn</div>
+                                        </td>
+
+                                        <td style="display:none"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <div ng-if="vm.appliedLeaves.length <= 0" style="text-align:center">
+                                <h4>No data available</h4>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>

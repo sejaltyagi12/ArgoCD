@@ -1,0 +1,71 @@
+<div class="" ng-init="vm.getInitialData()">
+    <div class="modalPadding content-background">
+        <div class="">
+            <div class="row"> 
+                <div class="col-md-12">
+                    <h3 class="title text-center">Resignation of {{vm.fullName}}</h3>
+                    <div class="col-md-8 col-md-offset-2">
+                        
+                        <form id="resignForm" name="resignForm" novalidate>
+                            <div class="row">
+                                <div class="col-md-6" >
+                                  <div class="form-group flex-inline">
+                                      <label class="margin-holidayLabel">Date</label>
+                                      <input type="text"   ng-class="{'highlightErr': resignForm.resignationDate.$error.required
+                                        && resignForm.$submitted}" class="form-control" name="resignationDate"  ng-model="vm.resignForm.resignationDate"  datepicker="" is-resignation-lastday = "true"   readonly="readonly"  required>
+                                       
+                                  </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-md-12">
+                                <div class="form-group mb-15">
+                                  <label id="">Reason</label>
+                                  <textarea class="form-control textarea-style" ng-class="{'highlightErr': resignForm.resignationReason.$error.required 
+                                  && resignForm.$submitted}" rows="5" name="resignationReason" id="resignationReason" ng-model="vm.resignForm.resignationReason"   maxlength="180" required></textarea>
+                                </div>
+                              </div>
+                            </div>
+                          
+                          <div class="text-center">
+                            <button type="submit" class="btn primary-btn width-70"
+                            ng-click="resignForm.$valid && vm.resign();">Submit</button>
+                            <!-- <input type="reset"  class="btn primary-btn width-70" value="Clear"> -->
+                            <button type="button" class="btn primary-btn" ng-click="vm.closeModal('cancel')">Cancel</button>
+                          </div>
+                      </form>
+                         
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--AlertModal -->
+
+<div class="modal" id="resign-modal">
+    <div class="modal-dialog modal-sm modal-alert">
+        <div class="modal-content">
+            <div class="modal-body" >
+                <div  role="alert" width="100%">
+                    <div ng-if="vm.formSubmitted" class="alert alert-success" role="alert" width="100%">
+                        Successfully updated resignation details
+                    </div>
+                    <div ng-if="vm.formSubmitted==false && vm.message==undefined" class="alert alert-danger" role="alert" width="100%">
+                        Unable to process your request. Please retry or contact system admin
+                    </div>
+
+                    <div ng-if="vm.formSubmitted==false && vm.message != undefined && vm.message !='' " class="alert alert-danger" role="alert" width="100%">
+                        {{vm.message}}
+                    </div>
+
+                </div>
+                <button type="button" class="btn mt-10" ng-click="vm.closeModal()" data-dismiss="modal" style="color:#000">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+            

@@ -1,0 +1,301 @@
+<div class="container-fluid" ng-init="vm.getInitialData()">
+    <div class="content-section">
+
+        <div class="row">
+            <div class="col-md-12">
+            	<div class="inner-page-box" >
+                    <div class='inner-page-header'>
+                    <h4>Resignation Detail</h4>
+                    </div>
+
+                    <div class="inner-page-content">
+                      
+                        <form class="form-horizontal resignation-subordinate-form" name="resignationSubordinateForm" id="resignationSubordinateForm"  novalidate>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-md-offset-1" >Employee's Name:</label>
+                                <div class="col-md-5 input-text-border input-text-border-size">
+                                {{vm.resignationDetail.employeeName}}
+                                </div>
+                            </div>
+                         
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-md-offset-1" >Type of Exit:</label>
+                                <div class="col-md-5 input-text-border input-text-border-size">          
+                                   {{vm.resignationDetail.type.type}}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-md-offset-1" >Reason:</label>
+                                <div class="col-md-5 input-text-border input-text-border-size">          
+                                   {{vm.resignationDetail.reason.reason}}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-md-offset-1">Resignation Date:</label>
+                                <div class="col-md-5 input-text-border input-text-border-size">          
+                                   {{vm.resignationDetail.resignationDate}}
+                                </div>
+                            </div>
+
+                            
+                            <!--for selecting date Calender incase of Admin / Hr -view -->
+                            <!-- <div ng-if="(vm.user === 'admin' || ((vm.department  === 'human resource' || vm.department === 'hr'|| vm.department === 'hr dept' ) && (vm.designationName !== 'hr trainee' && vm.designationName !== 'hr recruiter associate' && vm.designationName !== 'hr generalist associate')))&& (vm.resignationDetail.hrStatus === 'PENDING') && (vm.self === false)" class="form-group">
+                                <label class="control-label col-md-2 col-md-offset-1">Last day in Company:</label>
+
+                                <div class="col-md-5 pad-0">
+
+                                <input ng-model="vm.resignationDetail.lastDay" name="lastDay" type="text" class="form-control input-text-border" is-resignation-lastday = "true" datepicker="" placeholder="Enter Last Day" ng-change="vm.convertDate(vm.resignationDetail.lastDay)" readonly="readonly"/>          
+                                </div>
+
+                            </div> -->
+                            <div  class="form-group" ng-if="vm.resignationDetail.hrStatus === 'PENDING'">
+                                <label class="control-label col-md-2 col-md-offset-1">Last day in Company:</label>
+
+                                <div class="col-md-5 pad-0">
+
+                                <input ng-model="vm.resignationDetail.lastDay"  name="lastDay" type="text" class="form-control input-text-border" is-resignation-lastday = "true" datepicker="" placeholder="Enter Last Day" ng-change="vm.convertDate(vm.resignationDetail.lastDay)" readonly="readonly"/>          
+                                </div>
+
+                            </div>
+
+                         
+                            <div ng-if="(vm.resignationDetail.hrStatus !== 'PENDING')" class="form-group">
+                                <label class="control-label col-md-2 col-md-offset-1">Last day in Company:</label>
+                                <div class="col-md-5 input-text-border input-text-border-size" ng-class="{'height-36':(vm.resignationDetail.lastDay === null)}">          
+                                   {{vm.resignationDetail.lastDay}}
+                                </div>
+                            </div>
+
+                            <!-- manager-view for last day -->
+
+                            <!-- <div ng-if="(vm.user !== 'admin' || ((vm.department === 'human resource' || vm.department === 'hr' || vm.department === 'hr dept') && (vm.designationName === 'hr trainee' || vm.designationName === 'hr recruiter associate' || vm.designationName === 'hr generalist associate')))" class="form-group">
+                                <label class="control-label col-md-2 col-md-offset-1">Last day in Company:</label>
+                                <div class="col-md-5 input-text-border input-text-border-size" ng-class="{'height-36':(vm.resignationDetail.lastDay === null)}">          
+                                   {{vm.resignationDetail.lastDay}}
+                                </div>
+                            </div> -->
+
+
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-md-offset-1">Notes:</label>
+                                <div class="col-md-8 input-text-border input-text-border-size" style=" word-wrap: break-word;" >          
+                                   {{vm.resignationDetail.resignationText}}
+                                </div>
+                            </div>
+
+                            <!-- for selfResignationDetail Page data  -->
+
+                            <div ng-if ="vm.self === true && vm.resignationDetail.managerStatus !== 'PENDING'" class="form-group">
+                                <label class="control-label col-md-2 col-md-offset-1">Manager Notes:</label>
+                                <div class="col-md-8 input-text-border input-text-border-size" style="word-wrap: break-word;" ng-class="{'height-36':(vm.resignationDetail.managerPublicNotes === null)}">          
+                                   {{vm.resignationDetail.managerPublicNotes}}
+                                </div>
+                            </div>
+
+                            <div ng-if ="vm.self === true && vm.resignationDetail.hrStatus !== 'PENDING'" class="form-group">
+                                <label class="control-label col-md-2 col-md-offset-1">Hr Notes:</label>
+                                <div class="col-md-8 input-text-border input-text-border-size"  style=" word-wrap: break-word;" ng-class="{'height-36':(vm.resignationDetail.hrPublicNotes === null)}">          
+                                   {{vm.resignationDetail.hrPublicNotes}}
+                                </div>
+                            </div>
+
+
+
+                            <div ng-if ="vm.self === true" class="form-group">
+                                <label class="control-label col-md-2 col-md-offset-1">Manager Status:</label>
+                                <div class="col-md-8 input-text-border input-text-border-size">          
+                                   {{vm.resignationDetail.managerStatus}}
+                                </div>
+                            </div>
+
+                            <div ng-if ="vm.self === true" class="form-group">
+                                <label class="control-label col-md-2 col-md-offset-1">Hr Status:</label>
+                                <div class="col-md-8 input-text-border input-text-border-size">          
+                                   {{vm.resignationDetail.hrStatus}}
+                                </div>
+                            </div>
+
+
+                            <!-- for subordinateResignationDetail page data  -->
+
+
+                            <!-- <div class="form-group" ng-if="(vm.user !== 'admin' || ((vm.department === 'human resource' || vm.department === 'hr' || vm.department === 'hr dept') && (vm.designationName === 'hr trainee' || vm.designationName === 'hr recruiter associate' || vm.designationName === 'hr generalist associate'))) && (vm.resignationDetail.managerStatus === 'PENDING') && (vm.self === false)">
+
+                                <label class="control-label col-md-2 col-md-offset-1">Manager Notes:<span style="color:red;">*</span></label>
+
+                                <div  class="col-md-8 pad-0" style="word-wrap: break-word;"> 
+
+                                <textarea ng-class="{'highlightErr': resignationSubordinateForm.publicNotes.$error.required && resignationSubordinateForm.$submitted}"  type="text"  placeholder="Enter Manager Notes" name="publicNotes" ng-model="vm.publicNotes" class="form-control input-text-border "   maxlength ="250"  required></textarea>
+                                </div>
+                                
+                            </div> -->
+                            <div class="form-group" ng-if="((vm.user !== 'admin' || ((vm.department === 'human resource' || vm.department === 'hr' || vm.department === 'hr dept') && (vm.designationName === 'hr trainee' || vm.designationName === 'hr recruiter associate' || vm.designationName === 'hr generalist associate'))) && (vm.resignationDetail.managerStatus === 'PENDING') && (vm.self === false) ) && vm.managerId === vm.logedInUserId">
+
+                                <label class="control-label col-md-2 col-md-offset-1">Manager Notes:<span style="color:red;">*</span></label>
+
+                                <div  class="col-md-8 pad-0" style="word-wrap: break-word;"> 
+
+                                <textarea ng-class="{'highlightErr': resignationSubordinateForm.publicNotes.$error.required && resignationSubordinateForm.$submitted}"  type="text"  placeholder="Enter Manager Notes" name="publicNotes" ng-model="vm.publicNotes" class="form-control input-text-border "   maxlength ="250"  required></textarea>
+                                </div>
+                                
+                            </div>
+
+                            <div class="form-group" ng-if="vm.resignationDetail.managerStatus !== 'PENDING' && vm.self === false">
+                                 <label class="control-label col-md-2 col-md-offset-1">Manager Notes:</label>
+
+                                <div class="col-md-8 input-text-border input-text-border-size" style="word-wrap: break-word;" ng-class="{'height-36':(vm.resignationDetail.managerPublicNotes === null)}">  
+                                 {{vm.resignationDetail.managerPublicNotes}}
+                                </div>
+                                
+                            </div>
+
+
+
+
+                            <div class="form-group" ng-if="((vm.user !== 'admin' || ((vm.department === 'human resource' || vm.department === 'hr' || vm.department === 'hr dept') && (vm.designationName === 'hr trainee' || vm.designationName === 'hr recruiter associate' || vm.designationName === 'hr generalist associate'))) && (vm.resignationDetail.managerStatus === 'PENDING') && (vm.self === false))&& vm.managerId === vm.logedInUserId ">
+
+                                <label class="control-label col-md-2 col-md-offset-1">Manager Private Notes:</label>
+
+                                <div  class="col-md-8 pad-0" style="word-wrap: break-word;">         
+                                <textarea  type="text" style="width:100%;" name="privateNotes"  placeholder="Enter Manager Private Notes" ng-model="vm.privateNotes" class="form-control input-text-border" maxlength ="250" ></textarea>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group" ng-if="vm.resignationDetail.managerStatus !== 'PENDING' &&  vm.self === false">
+                                <label class="control-label col-md-2 col-md-offset-1">Manager Private Notes:</label>
+
+                                <div class="col-md-8 input-text-border input-text-border-size" style="word-wrap: break-word;"  ng-class="{'height-36':(vm.resignationDetail.managerPrivateNotes === null)}">
+                                       {{vm.resignationDetail.managerPrivateNotes}}
+                                </div>
+
+                            </div>
+
+
+
+
+
+                            <div class="form-group" ng-if="(vm.user === 'admin' || ((vm.department  === 'human resource' || vm.department === 'hr'|| vm.department === 'hr dept' ) && (vm.designationName !== 'hr trainee' && vm.designationName !== 'hr recruiter associate' && vm.designationName !== 'hr generalist associate'))) && (vm.resignationDetail.hrStatus === 'PENDING')  && (vm.self === false) ">
+
+                                <label class="control-label col-md-2 col-md-offset-1">Hr Notes:<span style="color:red;">*</span></label>
+
+                                <div  class="col-md-8 pad-0">  
+
+                                   <textarea style=" word-wrap: break-word;" style=" word-wrap: break-word;" ng-class="{'highlightErr': resignationSubordinateForm.publicNotes.$error.required && resignationSubordinateForm.$submitted}" type="text" style="width:100%;" name="publicNotes" ng-model="vm.publicNotes" class="form-control input-text-border"   placeholder="Enter Hr Notes" maxlength ="250"  required></textarea>
+                                </div>
+
+                                
+                            </div>
+
+
+                            <div class="form-group" ng-if="(vm.resignationDetail.hrStatus !== 'PENDING') && (vm.self === false)">
+
+                                <label class="control-label col-md-2 col-md-offset-1">Hr Notes:</label>
+
+                                <div class="col-md-8 input-text-border input-text-border-size" style=" word-wrap: break-word;" ng-class="{'height-36':(vm.resignationDetail.hrPublicNotes === null)}">          
+                                   {{vm.resignationDetail.hrPublicNotes}}
+                                </div>
+                                
+                            </div>
+
+
+
+                            <div class="form-group" ng-if="(vm.user === 'admin' || ((vm.department  === 'human resource' || vm.department === 'hr'|| vm.department === 'hr dept' ) && (vm.designationName !== 'hr trainee' && vm.designationName !== 'hr recruiter associate' && vm.designationName !== 'hr generalist associate'))) && (vm.resignationDetail.hrStatus === 'PENDING') && vm.self === false">
+
+                                <label class="control-label col-md-2 col-md-offset-1">Hr Private Notes:</label>
+
+                                <div  class="col-md-8 pad-0" style=" word-wrap: break-word;">
+
+                                   <textarea  type="text" style="width:100%;" name="privateNotes" placeholder="Enter Hr Priavte Notes"  ng-model="vm.privateNotes" class="form-control input-text-border"   maxlength ="250"></textarea> 
+                                </div>
+
+                               
+                            </div>
+
+                            <div class="form-group" ng-if=" (vm.user === 'admin' || ((vm.department  === 'human resource' || vm.department === 'hr'|| vm.department === 'hr dept' ) && (vm.designationName !== 'hr trainee' && vm.designationName !== 'hr recruiter associate' && vm.designationName !== 'hr generalist associate'))) && vm.resignationDetail.hrStatus !== 'PENDING' && vm.self === false">
+                                 <label class="control-label col-md-2 col-md-offset-1">Hr Private Notes:</label>
+
+                                 <div class="col-md-8 input-text-border input-text-border-size" style=" word-wrap: break-word;" ng-class="{'height-36':(vm.resignationDetail.hrPrivateNotes === null)}">          
+                                   {{vm.resignationDetail.hrPrivateNotes}}
+                                </div>
+                                
+                            </div>
+
+                            <!-- <div class="form-group" ng-if="(vm.user === 'admin' || ((vm.department  === 'human resource' || vm.department === 'hr'|| vm.department === 'hr dept' ) && (vm.designationName !== 'hr trainee' && vm.designationName !== 'hr recruiter associate' && vm.designationName !== 'hr generalist associate'))) && (vm.resignationDetail.hrStatus !== 'PENDING') && vm.self === false">
+                                <label class="control-label col-md-2 col-md-offset-1">Hr Status:2</label>
+
+                                    <div class="col-md-5 input-text-border input-text-border-size">          
+                                       {{vm.resignationDetail.hrStatus}}
+                                    </div>
+                                
+                            </div> -->
+                            <div class="form-group" ng-if= "vm.self === false">
+                                <label class="control-label col-md-2 col-md-offset-1">Hr Status:</label>
+
+                                    <div class="col-md-5 input-text-border input-text-border-size">          
+                                       {{vm.resignationDetail.hrStatus}}
+                                    </div>
+                                
+                            </div>
+
+                            <!-- <div class="form-group" ng-if="(vm.user !== 'admin' || ((vm.department === 'human resource' || vm.department === 'hr' || vm.department === 'hr dept') && (vm.designationName === 'hr trainee' || vm.designationName === 'hr recruiter associate' || vm.designationName === 'hr generalist associate')))  && (vm.resignationDetail.managerStatus !== 'PENDING') && vm.self === false">
+                                <label class="control-label col-md-2 col-md-offset-1">Manager Status:</label>
+
+                                    <div class="col-md-5 input-text-border input-text-border-size">          
+                                       {{vm.resignationDetail.managerStatus}}
+                                    </div>
+                                
+                            </div> -->
+                            <div class="form-group" ng-if="vm.self === false">
+                                <label class="control-label col-md-2 col-md-offset-1">Manager Status:</label>
+
+                                    <div class="col-md-5 input-text-border input-text-border-size">          
+                                       {{vm.resignationDetail.managerStatus}}
+                                    </div>
+                                
+                            </div>
+
+                             <!-- <div class="form-group" ng-if="(vm.user === 'admin' || ((vm.department  === 'human resource' || vm.department === 'hr'|| vm.department === 'hr dept' ) && (vm.designationName !== 'hr trainee' && vm.designationName !== 'hr recruiter associate' && vm.designationName !== 'hr generalist associate'))) && vm.self === false">
+                                <label class="control-label col-md-2 col-md-offset-1">Manager Status:</label>
+
+                                    <div class="col-md-5 input-text-border input-text-border-size">          
+                                       {{vm.resignationDetail.managerStatus}}
+                                    </div>
+                                
+                            </div> -->
+
+                            <!-- <div class="form-group" ng-if="(vm.user !== 'admin' || ((vm.department === 'human resource' || vm.department === 'hr' || vm.department === 'hr dept') && (vm.designationName === 'hr trainee' || vm.designationName === 'hr recruiter associate' || vm.designationName === 'hr generalist associate')))  && vm.self === false">
+                                <label class="control-label col-md-2 col-md-offset-1">Hr Status:3{{vm.user}}</label>
+
+                                    <div class="col-md-5 input-text-border input-text-border-size">          
+                                       {{vm.resignationDetail.hrStatus}}
+                                    </div>
+                                
+                            </div> -->
+
+                            <div  ng-if="(((vm.user === 'admin' || ((vm.department  === 'human resource' || vm.department === 'hr'|| vm.department === 'hr dept' ) && (vm.designationName !== 'hr trainee' && vm.designationName !== 'hr recruiter associate' && vm.designationName !== 'hr generalist associate'))) && (vm.resignationDetail.hrStatus === 'PENDING')) || ((vm.user !== 'admin' || ((vm.department === 'human resource' || vm.department === 'hr' || vm.department === 'hr dept') && (vm.designationName === 'hr trainee' || vm.designationName === 'hr recruiter associate' || vm.designationName === 'hr generalist associate')))  && (vm.resignationDetail.managerStatus === 'PENDING'))) && vm.self === false" class="" style="text-align:right;">
+                                <button class="resignation-button-apply" type="submit"  ng-click=" resignationSubordinateForm.$valid && vm.approve(true,vm.resignationDetail.id,vm.publicNotes,vm.privateNotes)">Approve</button>
+
+                                <button class="resignation-button-cancel" type="submit"  ng-click=" resignationSubordinateForm.$valid && vm.approve(false,vm.resignationDetail.id,vm.publicNotes,vm.privateNotes)" style=" margin-left: 25px;" ng-click="vm.goToPreviousPage()">Reject</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="text-center mt-10">
+                    <button class="btn primary-btn width-70" type="button" ng-click="vm.goToPreviousPage()">Cancel</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

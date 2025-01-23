@@ -1,0 +1,150 @@
+<div class="content-section"  ng-init="vm.initialData()">
+    <div class="container-fluid manageLeave">
+        <div class="self-evaluation-page">
+            <div class="row">
+                <div class="col-md-12">
+                <h3 ng-if="vm.empId!=undefined && vm.empId!=null" class="dataTable-heading" style="padding:0">Review</h3>
+                 <h3 ng-if="vm.empId==undefined" class="dataTable-heading" style="padding:0">Self Evaluation</h3>
+
+                   
+                    <div ng-if="vm.empId!=undefined && vm.empId!=null">
+                        <p><h4 class="text-center"><b>Department&nbsp;-&nbsp;{{vm.departmentName}}</b></h4>
+                        <p><h4 class="text-center"><b>{{vm.reviewDataContent.employeeName}}</b></h4>
+                    </div>
+                    <div class="table-responsive" ng-if="vm.hasQues && vm.reviewDataContent.categories.length > 0">
+                        <form id="reviewForm" name="reviewForm" novalidate>
+                            <fieldset ng-disabled="(vm.isEmpSubmitted==true||vm.isMangerSubmitted==true  && vm.user !='ADMIN' && (vm.department!='human resource' && vm.department!='hr' && vm.department!='hr dept'))||vm.cycleCompleted"> 
+
+                                <div class="col-xs-6" >
+                                    <div class="form-group flex-inline">
+                                      <label>From: </label><span style="margin-left: 6px;">{{vm.startDate}}</span>
+                                      <label style="margin-left:50px;">To: </label><span style="margin-left: 6px;">{{vm.endDate}}</span>
+                                    </div>
+                                </div>
+                        
+                                <table class="review-table" style="background-color:white;margin-bottom: 30px;">
+                                    <thead>
+                                         <tr>
+                                            <th>Target/Goals</th>
+                                            <th>Description</th>
+                                            <th>Self Rating</th>
+                                            <th>Reason</th>
+                                            <th>Manager's Rating</th>
+                                            <th>Reason</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody ng-if="review.questions.length> 0" ng-repeat="review in  vm.reviewDataContent.categories track by $index">
+                                        <tr>
+                                            <td colspan="6" style="text-align: left;">{{review.category}}</td>
+                                        </tr>
+
+                                        <tr ng-repeat="item in review.questions track by $index">
+                                            <td class="width-10">{{item.name}}</td>
+                                            <td class="width-10">{{item.description}}</td>
+                                            <td class="width-8">
+                                                <div style=" width: 60px;display: inline-block;">
+                                                    <select  ng-disabled="vm.isEmp==false || vm.specialAuthority==true"  ng-class="{'highlightErr': reviewForm['employeeRating_'+item.target.id].$error.required 
+                                                    && reviewForm.$submitted}" name="employeeRating_{{item.target.id}}" ng-model="item.target.evaluationHistory.employeeRating" ng-required="vm.isEmp==true" ng-change="vm.updateAverage();vm.enabledSave(item.target.evaluationHistory.employeeRating);">
+                                                        
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                    </select>
+                                                    <div  class="rating-tooltip"><i class="fa fa-info-circle " aria-hidden="true"></i>
+                                                        <span class="tooltiptext">
+                                                        <p class="mb-0" ng-repeat="x in item.rating.des">{{x.order + "- " +x.description}}</p>
+                                                        </span>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <textarea  ng-disabled="vm.isEmp==false || vm.specialAuthority==true" class="form-control textarea-style"  ng-class="{'highlightErr': reviewForm['employeeReason_'+item.target.id].$error.required 
+                                                && reviewForm.$submitted}" name="employeeReason_{{item.target.id}}" rows="1"  id="eComment" ng-model="item.target.evaluationHistory.employeeReason" maxlength="100" ng-required="vm.isEmp==true" ng-change="vm.enabledSave(item.target.evaluationHistory.employeeReason)"></textarea>
+                                            </td>
+                                            <td class="width-8">
+                                                <div>
+                                                    <select  ng-disabled="vm.isEmp==true" ng-class="{'highlightErr': !vm.isEmp && reviewForm['managerRating_'+item.target.id].$error.required 
+                                                    && reviewForm.$submitted}" name="managerRating_{{item.target.id}}" ng-model="item.target.evaluationHistory.managerRating" ng-required="vm.isEmp==false ||vm.specialAuthority==true" ng-change="vm.updateAverage()">
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                    </select>
+                                                    <div  class="rating-tooltip"><i class="fa fa-info-circle " aria-hidden="true"></i>
+                                                        <span class="tooltiptext">
+                                                        <p class="mb-0" ng-repeat="x in item.rating.des">{{x.order + "- " +x.description}}</p>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <textarea  ng-disabled="vm.isEmp==true" class="form-control textarea-style" ng-class="{'highlightErr': !vm.isEmp && reviewForm['managerReason_'+item.target.id].$error.required 
+                                                && reviewForm.$submitted}" rows="1" name="managerReason_{{item.target.id}}" id="mComment" ng-model="item.target.evaluationHistory.managerReason"   maxlength="100"></textarea>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tr>
+                                        <th colspan="2"></th>
+                                        <th colspan="2" style="text-align:left;">
+                                            Average: <span>{{vm.averageRatingEmp}}</span>
+                                        </th>
+                                        <th colspan="2" style="text-align:left;">
+                                            Average: <span>{{vm.averageRatingManager}}</span>
+                                        </th>
+                                    </tr>
+                                </table>
+
+                            </fieldset>
+                            <div class="text-center">
+                                <button  ng-if="vm.isEmp==true" ng-disabled="vm.isEmpSubmitted==true|| vm.enable==false||vm.cycleCompleted"  type="button" class="btn primary-btn width-70" ng-click="vm.reviewSave()">Save</button>
+
+                                <button ng-disabled="(vm.isEmpSubmitted==true||vm.isMangerSubmitted==true && vm.user !='ADMIN' && (vm.department!='human resource' && vm.department!='hr' && vm.department!='hr dept')) || vm.cycleCompleted"  type="submit"  class="btn primary-btn width-70" ng-click="reviewForm.$valid && vm.reviewSubmit()">Submit</button>
+
+                                <button type="button" class="btn primary-btn width-70" ng-click="vm.goToPreviousPage(vm.cycleIdRoute)">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div ng-if="!vm.hasQues && vm.reviewDataContent.categories.length <= 0 || vm.reviewDataContent.categories==undefined" style="text-align:center;">
+                        <h5>No Data Available</h5>
+                        <div class="text-center">
+                            <button type="button" class="btn primary-btn width-70" ng-click="vm.goToPreviousPage(vm.cycleIdRoute)">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+   </div>
+</div>
+
+<!-- Alert Modal -->
+
+
+                                <div class="modal" id="review-modal" >
+                                    <div class="modal-dialog modal-sm modal-alert">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <div ng-if="vm.formSubmitted && vm.savedData" class="alert alert-success" role="alert" width="100%">
+                                                    Successfully saved the Review
+                                                </div>
+
+                                                <div ng-if="vm.formSubmitted &&  vm.submittedData" class="alert alert-success" role="alert" width="100%">
+                                                    Successfully submitted the Review
+                                                </div>
+
+                                                <div ng-if="vm.formSubmitted==false && vm.message==undefined" class="alert alert-danger" role="alert" width="100%">
+                                                    Unable to process your request. Please retry or contact system admin
+                                                </div>
+
+                                                <div ng-if="vm.formSubmitted==false && vm.message != undefined && vm.message !=''" class="alert alert-danger" role="alert" width="100%">
+                                                    {{vm.message}}
+                                                </div>
+                                                
+                                                <button type="button" class="btn mt-10" data-dismiss="modal" style="color:#000;background:rgba(153, 153, 153, 0.75);">Ok</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>

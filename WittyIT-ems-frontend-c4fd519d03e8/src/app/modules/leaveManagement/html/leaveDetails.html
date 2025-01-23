@@ -1,0 +1,150 @@
+<div class="content-section">
+    <div class="container-fluid" ng-init=vm.initialData()>
+        <div class="leave-details-page">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="dataTable-heading">LEAVE DETAILS</h3>
+                   
+                        <div class="table-responsive" >
+                            <table class="table addLeftBorder" datatable="ng" dt-options="vm.dtOptions" dt-column-defs="vm.dtColumnDefs" class="row-border hover mb-10" ng-if="vm.appliedLeaves.length > 0">
+                                <thead>
+                                    <tr>
+                                        <th style="display: none"></th>
+                                        <th >S.No </th>
+                                        <th >From </th>
+                                        <th >To </th>
+                                       
+                                        <th>Day Count</th>
+                                        <th >Deduction Details</th>
+                                        <th >Type </th>
+                                        <th ng-init = "vm.calFun();">Employee Comments </th>
+                                        <th >Manager Comments </th>
+                                        <th >Leave Status Date</th>
+                                        <th >Status </th>
+                                        <th style="display: none"></th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="leave in vm.appliedLeaves track by $index">
+                                        <td style="display: none"></td>
+                                        <td>{{$index+1}}</td>
+                                        <td>{{leave.fromDate |date: 'dd/MM/yyyy'}}</td>
+                                        <td>{{leave.toDate | date: 'dd/MM/yyyy'}}</td>
+                                       
+                                        <td>{{leave.dayCount}}</td>
+                                        <td>{{leave.deductionDetails}}</td>
+                                        <td>
+                                            <div class="link-download" ng-if="leave.leaveType.type=='Sick Leave' && leave.attachmentUrl!= null">
+                                                <a ng-click="vm.download($index,leave.attachmentUrl)">{{leave.leaveType.type}}</a>
+                                            </div>
+                                            <div ng-if="leave.attachmentUrl== null">
+                                                {{leave.leaveType.type}}
+                                            </div>
+                                        </td>
+                                        <td>
+                                                <div class="comment-hover" ng-if ="leave.employeeComments.length>0">
+                                                        <P ng-if="!vm.innerWidth">   {{leave.employeeComments.substring(0,10)}}<span ng-if="leave.employeeComments.length>10">...</span></P>
+                                                        <P ng-if="vm.innerWidth">   {{leave.employeeComments.substring(0,30)}}<span ng-if="leave.employeeComments.length>30">...</span></P>
+                                                        <div class="commentText" style="left:-80px;word-break: break-all;" ng-class ="{'change-width-size':(leave.employeeComments.length>30)}">
+                                                            <p >{{leave.employeeComments}}</p>
+                                                        </div>
+                                                    </div>
+                                         
+                                            <!-- {{leave.employeeComments}} -->
+                                        </td>
+                                        <td>
+                                                <div class="comment-hover" ng-if ="leave.managerComments.length>0" >
+                                                        <P ng-if="!vm.innerWidth">   {{leave.managerComments.substring(0,20)}}<span ng-if="leave.managerComments.length>20">...</span></P>
+                                                        <P ng-if="vm.innerWidth">   {{leave.managerComments.substring(0,30)}}<span ng-if="leave.managerComments.length>30">...</span></P>
+                                                        <div class="commentText" style="left:-80px;word-break: break-all;" ng-class ="{'change-width-size':(leave.managerComments.length>30)}">
+                                                            <p >{{leave.managerComments}}</p>
+                                                        </div>
+                                                    </div>
+                                            <!-- {{leave.managerComments}} -->
+                                        
+                                        
+                                        </td>
+                                        <!-- <td>
+                                            {{
+                                            leave.status=='APPROVED' ? "Approved" : 
+                                            leave.status=='REJECTED' ? "Rejected" : 
+                                            leave.status=='WITHDRAWN' ? "Withdrawn" : "PENDING";
+
+                                        }} 
+                                        </td> -->
+                                        
+                                        <td>{{leave.leaveStatusDate | date: 'dd/MM/yyyy'}}</td>
+                                        <td ng-if="leave.status=='PENDING'">
+                                                <div class="btn-group btn-group-sm emplActBtn" >
+                                                    <button type="button" class="btn btn-action dropdown-toggle"  data-toggle="dropdown">PENDING<span class="caret ml-5"></span></button>
+                                                    <ul class="dropdown-menu left-m15"  role="menu" style="cursor:pointer;">
+                                                        <li ng-if="leave.status=='PENDING' && leave.leaveType.type!='Sick Leave'">
+                                                            <a ng-click="vm.withDraw(leave.id)">Withdraw</a>
+                                                        </li>
+                                                        <li ng-if="leave.status=='PENDING' && leave.leaveType.type=='Sick Leave'">
+                                                            <a ui-sref="page.leaveApplication({id :leave.id})">View</a>
+                                                            <a ng-click="vm.withDraw(leave.id)">Withdraw</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            
+                                        </td>
+                                        <td ng-if="leave.status!='PENDING'">
+
+                                            <div ng-if="leave.status!='WITHDRAWN' && leave.status!='REVOKED'" class="status-div">
+                                                {{leave.status=='APPROVED' ? "Approved" : "Rejected"}}
+                                            </div>
+                                            <div ng-if="leave.status==='REVOKED'">Revoked</div>
+                                            <div ng-if="leave.status==='WITHDRAWN'">Withdrawn</div>
+                                        </td>
+                                      
+
+
+                                        <!-- <td> 
+                                             <div ng-if="leave.status!='PENDING' && leave.status!='WITHDRAWN'">
+                                                {{leave.status=='APPROVED' ? "Approved" : "Rejected "}}
+                                            </div>
+                                            <div ng-if="leave.status=='WITHDRAWN'">Withdrawn</div>
+                                           
+                                            <div ng-if="leave.status=='PENDING' && leave.leaveType.type!='Sick Leave'" class="btn-group btn-group-sm emplActBtn">
+                                                <button type="button" class="btn  btn-action dropdown-toggle"  data-toggle="dropdown">PENDING<span class="caret ml-5"></span></button>
+                                                <ul class="dropdown-menu left-m15 hand-icon"  role="menu" >
+                                                    <li>
+                                                        <a ng-click="vm.withDraw(leave.id)">Withdraw</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                            <div ng-if="leave.status=='PENDING' && leave.leaveType.type=='Sick Leave'" class="btn-group btn-group-sm emplActBtn">
+                                                <button type="button" class="btn btn-action dropdown-toggle"  data-toggle="dropdown">PENDING<span class="caret ml-5"></span></button>
+                                                <ul class="dropdown-menu left-m15 hand-icon"  role="menu">
+                                                    <li>
+                                                        <a ui-sref="page.leaveApplication({id :leave.id})">View</a>
+                                                    </li>
+                                                    <li>
+                                                        <a ng-click="vm.withDraw(leave.id)">Withdraw</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                         </td> -->
+
+                                        <td style="display: none"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div  ng-if="vm.appliedLeaves.length <= 0" style="text-align:center">
+                               <h4>No data available</h4>
+                            </div>
+                        </div>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

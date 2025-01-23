@@ -1,0 +1,35 @@
+
+<div ng-show="vm.rosterUploaded !=null && vm.rosterUploaded" class="alert alert-success" role="alert" width="100%">
+  Roster Uploaded successfully
+</div>
+<div ng-show="vm.rosterUploaded !=null && !vm.rosterUploaded" class="alert alert-danger" role="alert" width="100%">
+Unable to process your request. Please retry or contact system admin
+</div>
+<div class="content-section ">
+    <div class="container-fluid">
+        <div class="roster-upload-page">
+            <div class="row">
+                <h3 class="dataTable-heading">Roster Upload</h3>
+                <div class="col-md-6 col-md-offset-3" style="text-align:center;">
+                  <div ng-if="vm.validExtension != undefined && !vm.validExtension" class="reqErr">Please provide a file with valid extension(xlsx)</div>
+                  <div ng-if="vm.informed!=null" class="reqErr ">{{vm.informed}}</div>
+                    
+                    <div  class="rosterFileUpload text-center">
+                        <label class="margin-rtb-6">Roster Excel</label>
+                         <a class='btn btn-primary roaster-browse' href='javascript:;'>Browse...
+                         <input type="file" class="choose-file" name="file_source" id="rosterInput" onchange='$("#upload-file-info").html(document.getElementById("rosterInput").files[0].name);'>
+                        </a>&nbsp;
+                        <span class='label label-info' id="upload-file-info"></span>
+                    </div>
+                    <div>
+                        <strong class="note-info"><span style="font-size: 14px;color:#000;">Note:-</span>Roster file extension should be in .xlsx and xls</strong>
+                    </div>
+                 
+                      <button type="submit" class="btn primary-btn width-70" ng-click="vm.upload()" style="margin-top:50px;">Upload</button>
+                      <button type="button" class="btn primary-btn width-70" style="margin-top:50px;" ng-click="vm.goToPreviousPage()">Cancel</button>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

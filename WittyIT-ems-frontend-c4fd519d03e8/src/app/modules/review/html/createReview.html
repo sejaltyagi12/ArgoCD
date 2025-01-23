@@ -1,0 +1,135 @@
+<div class="content-section" ng-init="vm.getInitialData()">
+    <div class="container-fluid ">
+        <div class="initiate-evaluation-page">
+            <div class="row">
+                <div class="col-md-12">
+                <h3 class="dataTable-heading">Initiate Evaluation</h3>
+                    <div class="col-sm-8 col-sm-offset-2">
+                        <label class="mb-20" style="font-size: initial;">Initiate New Evaluation</label>
+                        <form id="createReviewForm" name="createReviewForm" novalidate>
+                            <div class="row mb-20"  ng-init="vm.createReview.from = ''">
+                                <div class="col-sm-6" >
+                                    <div class="form-group ">
+                                          <label class="margin-rtb-6">From<span style="color:red;">*</span></label>
+                                          <input ng-class="{'highlightErr': createReviewForm.from.$error.required && createReviewForm.$submitted}"
+                                                 ng-model="vm.createReview.from"
+                                                 datepicker=""
+                                                 is-review-account="true"
+                                                 initiate-id="to"
+                                                 ng-change="vm.createReview.to=''"
+                                                 name="from"
+                                                 type="text"
+                                                 class="form-control"
+                                                 readonly="readonly" required/>
+                                                 
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group " ng-if="vm.createReview.from != null;" ng-init="vm.createReview.to=''">
+                                     
+                                          <label class="margin-rtb-6">To<span style="color:red;">*</span></label>
+                                          <input ng-class="{'highlightErr': createReviewForm.to.$error.required && createReviewForm.$submitted}"
+                                                 ng-model="vm.createReview.to"
+                                                 datepicker=""
+                                                 
+                                                 is-review-account="true"
+                                                 initiate-id="endDateEmployee"
+                                                 mini-date="{{vm.createReview.from}}"
+                                                 ng-change="vm.createReview.endDateEmployee=''"
+                                                 name="to"
+                                                 id="to"
+                                                 type="text"
+                                                 class="form-control"
+                                                 readonly="readonly" required/>
+                                                 
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-20">
+                                  <div class="col-sm-6">
+                                      <div class="form-group " ng-if="vm.createReview.to != null" ng-init="vm.createReview.endDateEmployee = ''">
+                                            <label class="margin-rtb-6">Last Date For Submission - Employee<span style="color:red;">*</span></label>
+                                            <input ng-class="{'highlightErr': createReviewForm.endDateEmployee.$error.required && createReviewForm.$submitted}"
+                                                   ng-model="vm.createReview.endDateEmployee"
+                                                   datepicker=""
+                                                   is-employee-min-date="true"
+                                                   is-review-account="false"
+                                                    mini-date="{{vm.createReview.to}}"
+                                                   initiate-id="endDateManager"
+                                                   ng-change="vm.createReview.endDateManager=''"
+                                                   name="endDateEmployee"
+                                                   type="text"
+                                                   class="form-control"
+                                                   readonly="readonly" required/>
+                                                   
+                                      </div>
+                                  </div>
+                                  <div class="col-sm-6">
+                                        <div class="form-group " ng-if="vm.createReview.endDateEmployee != null">
+                                              <label class="margin-rtb-6">Last Date For Submission - Manager<span style="color:red;">*</span></label>
+                                              <input ng-class="{'highlightErr': createReviewForm.endDateManager.$error.required && createReviewForm.$submitted}"
+                                                     ng-model="vm.createReview.endDateManager"
+                                                     id="endDateManager"
+                                                     datepicker=""
+                                                     mini-date="{{vm.createReview.endDateEmployee}}"
+                                                     is-review-account="false"
+                                                     name="endDateManager"
+                                                     type="text"
+                                                     class="form-control"
+                                                     readonly="readonly" required/>
+                                                     
+                                        </div>
+                                  </div>
+                            </div>
+
+                          <span ng-show="vm.departmentErr!=''" class="reqErr">{{vm.departmentErr}}</span>
+
+                            <div class="row mb-20">
+                              <div class="col-sm-6">
+                                <div class="form-group">
+                                  <label class="margin-rtb-6">Department<span style="color:red;">*</span></label>
+                                  <div ng-dropdown-multiselect="" class="multiSelect initiate-eval" name="department" options="vm.departmentData" selected-model="vm.departments" extra-settings="vm.settings" ng-click="vm.checkingDepartment(vm.departments)">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="text-center">
+                                <button type="submit" class="btn primary-btn width-70"
+                                ng-click="createReviewForm.$valid &&  vm.initiateReview()">Apply</button>
+                                <input type="reset"  class="btn primary-btn width-70" value="Clear">
+                                <button type="button" class="btn primary-btn width-70" ng-click="vm.goToPreviousPage()">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+   </div>
+</div>
+<!--AlertModal -->
+
+                            <div class="modal" id="initiateReview-modal">
+                                <div class="modal-dialog modal-sm modal-alert">
+                                    <div class="modal-content">
+                                        <div class="modal-body" >
+                                            <div  role="alert" width="100%">
+                                                <div ng-if="vm.formSubmitted" class="alert alert-success" role="alert" width="100%">
+                                                    Successfully initiated the Evaluation process for
+                                                  {{vm.createReview.fromCopy}} to {{vm.createReview.toCopy}}
+                                                </div>
+
+                                                <div ng-if="vm.formSubmitted==false && vm.message==undefined" class="alert alert-danger" role="alert" width="100%">
+                                                    Unable to process your request. Please retry or contact system admin
+                                                </div>
+
+                                                <div ng-if="vm.formSubmitted==false && vm.message != undefined && vm.message !='' " class="alert alert-danger" role="alert" width="100%">
+                                                    {{vm.message}}
+                                                </div>
+
+                                            </div>
+                                            <button type="button" class="btn mt-10" data-dismiss="modal" style="color:#000">Ok</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>

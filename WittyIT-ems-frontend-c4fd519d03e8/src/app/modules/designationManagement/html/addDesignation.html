@@ -1,0 +1,89 @@
+<div class="content-section" ng-init="vm.getInitialData()">
+    <div class="container-fluid">
+        <div class="add-designation-page">
+            <div class="row">
+                <div class="col-md-10">
+                    <h3 class="dataTable-heading">Add Designation</h3>
+                    <div class="col-md-8 col-md-offset-2">
+                        <form id="AddDesignation" name="AddDesignation" novalidate>
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <div class="form-group flex-inline">
+                                        <label class="margin-designationLabel">Designation Name</label><span
+                                            style="color:red;">*</span>
+                                        <input type="text" ng-class="{'highlightErr': AddDesignation.designation.$error.required
+                                      && AddDesignation.$submitted}" class="form-control" name="designation"
+                                            ng-model="vm.designationData.designation" placeholder="" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group flex-inline">
+                                        <label class="margin-designationLabel">Level</label><span
+                                            style="color:red;">*</span>
+                                        <input type="text" ng-class="{'highlightErr': AddDesignation.level.$error.required
+                                      && AddDesignation.$submitted}" class="form-control" name="level"
+                                            ng-model="vm.designationData.level" placeholder="" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group flex-inline">
+                                        <label class="margin-designationLabel">Department<span
+                                                style="color:red;">*</span>
+                                        </label>
+                                        <select name="department" class="form-control"
+                                            ng-model="vm.designationData.deptId" ng-class="{'highlightErr': AddDesignation.department.$error.required 
+                                              && AddDesignation.$submitted}"
+                                            ng-options="dept.deptId as dept.deptName for dept in vm.departmentList | orderBy:'deptName' "
+                                            required>
+                                            <option value="" disabled>Select Department</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-xs-12">
+                                <div class="text-center">
+                                    <button type="submit" class="btn primary-btn width-70"
+                                        ng-click="AddDesignation.$valid && !vm.invalidSize && vm.addDesignation();">Add</button>
+                                    <button type="button" class="btn primary-btn width-70 "
+                                        ng-click="vm.goToPreviousPage()">Cancel</button>
+
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--AlertModal -->
+
+<div class="modal" id="designation-modal">
+    <div class="modal-dialog modal-sm modal-alert">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div role="alert" width="100%">
+                    <div ng-if="vm.formSubmitted" class="alert alert-success" role="alert" width="100%">
+                        Designation added successfully
+                    </div>
+
+                    <div ng-if="(vm.formSubmitted==false && vm.message==undefined) ||(vm.formSubmitted==false && vm.message != undefined && vm.message !='')"
+                        class="alert alert-danger" role="alert" width="100%">
+                        Designation already exist.
+                    </div>
+
+                </div>
+                <button type="button" class="btn mt-10" data-dismiss="modal" style="color:#000">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>

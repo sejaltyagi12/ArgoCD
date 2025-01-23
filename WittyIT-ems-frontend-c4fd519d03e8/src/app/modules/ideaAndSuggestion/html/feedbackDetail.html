@@ -1,0 +1,57 @@
+<toaster-container></toaster-container>
+
+<div class="content-section " ng-init = "vm.getInitialData();">
+    <div class="container-fluid">
+        <div class="feedback-details-page">
+            <div class="row">
+                <div class="col-md-12">
+                    
+                    <h3 class="dataTable-heading">Feedback History</h3>
+               
+                    <div class="table-responsive" ng-if = "vm.feedbackDetail.length > 0">
+                        <table datatable="ng" class="table" dt-options="vm.dtOptions" dt-column-defs="vm.dtColumnDefs" class="row-border hover mb-10">
+                            <thead>
+                            <tr>    
+                                <th style="display:none"></th>
+                                <th class="relative">Date<span class="border-left"></span></th>
+                                <th class="relative">Department<span class="border-left"></span></th>
+                                <th class="relative">Feedback Subject<span class="border-left"></span></th>
+                                <th>Action</th>
+                                <th style="display:none"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr  ng-repeat="feed in vm.feedbackDetail track by $index ">
+                                <td style="display:none"></td>
+                                <td>{{feed.creationDate |date: 'dd/MM/yyyy'}}</td>
+                                <td>{{feed.departmentName}}</td>
+                                <td>
+                                    <div class="comment-hover" ng-if="feed.subject.length>0">
+                                        <P>   {{feed.subject.substring(0,30)}}<span ng-if="feed.subject.length>30">...</span></P>
+                                        <div class="commentText" style="left:-80px ; word-break: break-all;padding: 5px !important" ng-class ="{'change-width-size':(feed.subject.length>60)}">
+                                            <p >{{feed.subject}}</p>
+                                        </div>
+                                    </div>
+
+                                </td>
+                                <td>
+                                    <button type="button" class="btn primary-btn width-70"
+                                            ui-sref="page.feedback({id:feed.id})">View</button>
+                                </td>
+                                <td style="display:none"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div ng-if = "vm.feedbackDetail.length === 0" class="text-center">
+                        <h4>No data available</h4>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

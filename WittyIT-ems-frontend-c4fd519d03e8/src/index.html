@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html data-ng-app="app">
+
+<head>
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <!---prevent caching-->
+   <meta http-equiv="cache-control" content="max-age=0" />
+   <meta http-equiv="cache-control" content="no-cache" />
+   <meta http-equiv="expires" content="0" />
+   <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+   <meta http-equiv="pragma" content="no-cache" />
+   <!---prevent caching end-->
+
+   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+   <title>Employee Portal</title>
+
+   <!-- Built-in Modules -->
+   <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+   <link rel="stylesheet" type="text/css" href="bower_components/font-awesome/css/font-awesome.min.css">
+   <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+   <link rel="stylesheet" type="text/css" href="bower_components/nprogress/nprogress.css">
+   <link rel="stylesheet" type="text/css" href="bower_components/jquery-ui/themes/smoothness/jquery-ui.min.css">
+   <link rel="stylesheet" type="text/css" href="bower_components/datatables.net-dt/css/jquery.dataTables.min.css">
+   <link rel="stylesheet" type="text/css" href="bower_components/AngularJS-Toaster/toaster.min.css">
+
+
+
+
+</head>
+
+<body>
+
+   <div id="global-progress-display" style="display: none;">
+
+      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="circle-load-svg">
+         <g transform="translate(7 7)">
+            <circle cx="50" cy="0" r="7" style="opacity:0.3">
+               <animate attributeType="CSS" attributeName="opacity" from="1" to="0.3" dur="1.2s"
+                  repeatCount="indefinite" begin="0s"></animate>
+               <animateColor attributeName="fill" from="#318ad6" to="#ffffff" begin="0s" dur="1.2s" fill="remove"
+                  repeatCount="indefinite"></animateColor>
+            </circle>
+            <circle cx="75" cy="6.6987298" r="7" style="opacity:0.3">
+               <animate attributeType="CSS" attributeName="opacity" from="1" to="0.3" dur="1.2s"
+                  repeatCount="indefinite" begin="0.1s"></animate>
+               <animateColor attributeName="fill" from="#318ad6" to="#ffffff" begin="0.1s" dur="1.2s" fill="remove"
+                  repeatCount="indefinite"></animateColor>
+            </circle>
+            <circle cx="93.3012702" cy="25" r="7" style="opacity:0.3">
+               <animate attributeType="CSS" attributeName="opacity" from="1" to="0.3" dur="1.2s"
+                  repeatCount="indefinite" begin="0.2s"></animate>
+               <animateColor attributeName="fill" from="#318ad6" to="#ffffff" begin="0.2s" dur="1.2s" fill="remove"
+                  repeatCount="indefinite"></animateColor>
+            </circle>
+            <circle cx="100" cy="50" r="7" style="opacity:0.3">
+               <animate attributeType="CSS" attributeName="opacity" from="1" to="0.3" dur="1.2s"
+                  repeatCount="indefinite" begin="0.3s"></animate>
+               <animateColor attributeName="fill" from="#318ad6" to="#ffffff" begin="0.3s" dur="1.2s" fill="remove"
+                  repeatCount="indefinite"></animateColor>
+            </circle>
+            <circle cx="93.3012702" cy="75" r="7" style="opacity:0.3">
+               <animate attributeType="CSS" attributeName="opacity" from="1" to="0.3" dur="1.2s"
+                  repeatCount="indefinite" begin="0.4s"></animate>
+               <animateColor attributeName="fill" from="#318ad6" to="#ffffff" begin="0.4s" dur="1.2s" fill="remove"
+                  repeatCount="indefinite"></animateColor>
+            </circle>
+            <circle cx="75" cy="93.3012702" r="7" style="opacity:0.3">
+               <animate attributeType="CSS" attributeName="opacity" from="1" to="0.3" dur="1.2s"
+                  repeatCount="indefinite" begin="0.5s"></animate>
+               <animateColor attributeName="fill" from="#318ad6" to="#ffffff" begin="0.5s" dur="1.2s" fill="remove"
+                  repeatCount="indefinite"></animateColor>
+            </circle>
+            <circle cx="50" cy="100" r="7" style="opacity:0.3">
+               <animate attributeType="CSS" attributeName="opacity" from="1" to="0.3" dur="1.2s"
+                  repeatCount="indefinite" begin="0.6s"></animate>
+               <animateColor attributeName="fill" from="#318ad6" to="#ffffff" begin="0.6s" dur="1.2s" fill="remove"
+                  repeatCount="indefinite"></animateColor>
+            </circle>
+            <circle cx="25" cy="93.3012702" r="7" style="opacity:0.3">
+               <animate attributeType="CSS" attributeName="opacity" from="1" to="0.3" dur="1.2s"
+                  repeatCount="indefinite" begin="0.7s"></animate>
+               <animateColor attributeName="fill" from="#318ad6" to="#ffffff" begin="0.7s" dur="1.2s" fill="remove"
+                  repeatCount="indefinite"></animateColor>
+            </circle>
+            <circle cx="6.6987298" cy="75" r="7" style="opacity:0.3">
+               <animate attributeType="CSS" attributeName="opacity" from="1" to="0.3" dur="1.2s"
+                  repeatCount="indefinite" begin="0.8s"></animate>
+               <animateColor attributeName="fill" from="#318ad6" to="#ffffff" begin="0.8s" dur="1.2s" fill="remove"
+                  repeatCount="indefinite"></animateColor>
+            </circle>
+            <circle cx="0" cy="50" r="7" style="opacity:0.3">
+               <animate attributeType="CSS" attributeName="opacity" from="1" to="0.3" dur="1.2s"
+                  repeatCount="indefinite" begin="0.9s"></animate>
+               <animateColor attributeName="fill" from="#318ad6" to="#ffffff" begin="0.9s" dur="1.2s" fill="remove"
+                  repeatCount="indefinite"></animateColor>
+            </circle>
+            <circle cx="6.6987298" cy="25" r="7" style="opacity:0.3">
+               <animate attributeType="CSS" attributeName="opacity" from="1" to="0.3" dur="1.2s"
+                  repeatCount="indefinite" begin="1s"></animate>
+               <animateColor attributeName="fill" from="#318ad6" to="#ffffff" begin="1s" dur="1.2s" fill="remove"
+                  repeatCount="indefinite"></animateColor>
+            </circle>
+            <circle cx="25" cy="6.6987298" r="7" style="opacity:0.3">
+               <animate attributeType="CSS" attributeName="opacity" from="1" to="0.3" dur="1.2s"
+                  repeatCount="indefinite" begin="1.1s"></animate>
+               <animateColor attributeName="fill" from="#318ad6" to="#ffffff" begin="1.1s" dur="1.2s" fill="remove"
+                  repeatCount="indefinite"></animateColor>
+            </circle>
+         </g>
+      </svg>
+
+   </div>
+
+   <div class="full-height" data-ui-view=""></div>
+
+   <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+
+   <script type="text/javascript" src="bower_components/jquery-ui/jquery-ui.min.js"></script>
+   <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+
+   <script type="text/javascript" src="bower_components/angular/angular.js"></script>
+   <script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+   <script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+
+   <script type="text/javascript" src="bower_components/nprogress/nprogress.js"></script>
+   <script type="text/javascript" src="bower_components/angular-cookies/angular-cookies.js"></script>
+   <script type="text/javascript" src="bower_components/angular-animate/angular-animate.min.js"></script>
+
+   <script type="text/javascript" src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+   <script type="text/javascript" src="bower_components/angular-datatables/dist/angular-datatables.min.js"></script>
+
+   <script type="text/javascript" src="bower_components/ng-file-upload-shim/ng-file-upload-shim.min.js"></script>
+   <script type="text/javascript" src="bower_components/ng-file-upload/ng-file-upload.min.js"></script>
+
+   <script type="text/javascript" src="bower_components/highcharts/highcharts.js"></script>
+
+   <script type="text/javascript" src="bower_components/ng-img-crop/compile/minified/ng-img-crop.js"></script>
+
+   <script type="text/javascript"
+      src="bower_components/angularjs-dropdown-multiselect/dist/angularjs-dropdown-multiselect.min.js"></script>
+
+   <script type="text/javascript" src="bower_components/angular-file-saver/dist/angular-file-saver.bundle.js"></script>
+
+   <script type="text/javascript" src="bower_components/AngularJS-Toaster/toaster.min.js"></script>
+   <script type="text/javascript" src="bower_components/moment/moment.js"></script>
+
+
+
+   <!--owlcarousel js files-->
+
+   <!-- <script src="bower_components/owl.carousel/dist/owl.carousel.min.js"></script> -->
+
+   <!-- inject:css -->
+   <link href="/content/css/fullcalendar.css?v=1537971609538" rel="stylesheet">
+   <link href="/content/css/fullcalendar.print.css?v=1537971609538" rel="stylesheet">
+   <link href="/content/css/lato-font.css?v=1537971609538" rel="stylesheet">
+   <link href="/content/css/lato-font.min.css?v=1537971609538" rel="stylesheet">
+   <link href="/content/css/lightslider.css?v=1537971609538" rel="stylesheet">
+   <link href="/content/css/style.css?v=1537971609538" rel="stylesheet">
+   <!-- endinject -->
+
+   <!-- inject:js -->
+   <script src="/app/common/app.module.js?v=1537971609537"></script>
+   <script src="/app/common/constant.js?v=1537971609537"></script>
+   <script src="/app/common/page.layout.Controller.js?v=1537971609537"></script>
+   <script src="/app/common/api/api.auth.interceptor.js?v=1537971609537"></script>
+   <script src="/app/common/api/api.backend.endpoints.config.js?v=1537971609537"></script>
+   <script src="/app/common/api/api.data.service.js?v=1537971609537"></script>
+   <script src="/app/common/api/api.loader.service.js?v=1537971609537"></script>
+   <script src="/app/common/api/api.profile.service.js?v=1537971609537"></script>
+   <script src="/app/common/core/config.route.js?v=1537971609537"></script>
+   <script src="/app/modules/PoliciesAndProcedure/policyController.js?v=1537971609537"></script>
+   <script src="/app/modules/auth/acceptanceController.js?v=1537971609537"></script>
+   <script src="/app/modules/auth/forgetPassController.js?v=1537971609537"></script>
+   <script src="/app/modules/auth/loginController.js?v=1537971609537"></script>
+   <script src="/app/modules/ideaAndSuggestion/feedbackController.js?v=1537971609537"></script>
+   <script src="/app/modules/ideaAndSuggestion/feedbackDetailController.js?v=1537971609537"></script>
+   <script src="/app/modules/ideaAndSuggestion/teamFeedbackController.js?v=1537971609537"></script>
+   <script src="/app/modules/registration/dashboardController.js?v=1537971609537"></script>
+   <script src="/app/modules/registration/profileController.js?v=1537971609537"></script>
+   <script src="/app/modules/registration/registrationController.js?v=1537971609537"></script>
+   <script src="/app/modules/report/reportController.js?v=1537971609537"></script>
+   <script src="/app/modules/leaveManagement/leaveAccountController.js?v=1537971609537"></script>
+   <script src="/app/modules/leaveManagement/leaveApplicationController.js?v=1537971609537"></script>
+   <script src="/app/modules/leaveManagement/leaveApprovedController.js?v=1537971609537"></script>
+   <script src="/app/modules/leaveManagement/leaveDetailsController.js?v=1537971609537"></script>
+   <script src="/app/modules/leaveManagement/medicalUploadController.js?v=1537971609537"></script>
+   <script src="/app/modules/payroll/salarySlipController.js?v=1537971609537"></script>
+   <script src="/app/modules/payroll/viewCurrentBreakdownController.js?v=1537971609537"></script>
+   <script src="/app/modules/resignation/resignHistoryController.js?v=1537971609537"></script>
+   <script src="/app/modules/resignation/resignNewController.js?v=1537971609537"></script>
+   <script src="/app/modules/resignation/selfResignationController.js?v=1537971609537"></script>
+   <script src="/app/modules/resignation/subordinateResignationController.js?v=1537971609537"></script>
+   <script src="/app/modules/resignation/subordinateResignationDetailController.js?v=1537971609537"></script>
+   <script src="/app/modules/review/categoryManagementController.js?v=1537971609537"></script>
+   <script src="/app/modules/review/createReviewController.js?v=1537971609537"></script>
+   <script src="/app/modules/review/ratingManagementController.js?v=1537971609537"></script>
+   <script src="/app/modules/review/reviewAllController.js?v=1537971609537"></script>
+   <script src="/app/modules/review/reviewDetailsController.js?v=1537971609537"></script>
+   <script src="/app/modules/review/reviewHistoryController.js?v=1537971609537"></script>
+   <script src="/app/modules/review/selfEvaluationController.js?v=1537971609537"></script>
+   <script src="/app/modules/review/targetManagementController.js?v=1537971609537"></script>
+   <script src="/app/modules/review/teamEvaluationHistoryController.js?v=1537971609537"></script>
+   <script src="/app/modules/workForceManagement/pieChartsController.js?v=1537971609537"></script>
+   <script src="/app/modules/workForceManagement/resignController.js?v=1537971609537"></script>
+   <script src="/app/modules/workForceManagement/workForceManagementController.js?v=1537971609537"></script>
+   <script src="/app/modules/target/targetCategoryController.js?v=1537971609537"></script>
+   <script src="/app/modules/target/targetGoalController.js?v=1537971609537"></script>
+   <script src="/app/modules/target/targetRatingController.js?v=1537971609537"></script>
+   <script src="/app/modules/setup/SalarySlipUploadController.js?v=1537971609537"></script>
+   <script src="/app/modules/setup/notificationController.js?v=1537971609537"></script>
+   <script src="/app/modules/setup/notificationHistoryController.js?v=1537971609537"></script>
+   <script src="/app/modules/setup/roasterController.js?v=1537971609537"></script>
+   <script src="/app/modules/setup/updateHolidayController.js?v=1537971609537"></script>
+   <script src="/app/modules/designationManagement/departmentController.js?v=1537971609537"></script>
+   <script src="/app/modules/designationManagement/designationController.js?v=1537971609537"></script>
+   <script src="/app/modules/isloading.js?v=1537971609537"></script>
+   <script src="/app/common/directive/datepicker.directive.js?v=1537971609537"></script>
+   <script src="/app/common/directive/datepicker.directive1.js?v=1537971609537"></script>
+   <script src="/app/common/directive/inputFieldFormatter.directive.js?v=1537971609537"></script>
+   <script src="/app/common/directive/lightSlider.directive.js?v=1537971609537"></script>
+   <script src="/app/common/directive/myModal.directive.js?v=1537971609537"></script>
+   <script src="/app/common/directive/onlydigits.directive.js?v=1537971609537"></script>
+   <script src="/app/common/directive/owlCarousel.directive.js?v=1537971609537"></script>
+   <script src="/app/common/directive/passTooltip.directive.js?v=1537971609537"></script>
+   <script src="/app/common/directive/setDefaultSrc.directive.js?v=1537971609537"></script>
+   <script src="/app/common/directive/trimmingSpace.js?v=1537971609537"></script>
+   <script src="/app/common/directive/validateRegistrationField.js?v=1537971609537"></script>
+   <script src="/app/common/directive/validatepassword.directive.js?v=1537971609537"></script>
+   <script src="/app/services/authService.js?v=1537971609537"></script>
+   <script src="/app/common/factories/globalFactory.js?v=1537971609537"></script>
+   <script src="/content/js/eventCalender.js?v=1537971609537"></script>
+   <script src="/content/js/fullcalendar.js?v=1537971609537"></script>
+   <script src="/content/js/jquery-ui.custom.min.js?v=1537971609537"></script>
+   <script src="/content/js/lightslider.js?v=1537971609537"></script>
+   <!-- endinject -->
+
+</body>
+
+</html>

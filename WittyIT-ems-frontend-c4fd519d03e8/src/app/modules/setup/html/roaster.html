@@ -1,0 +1,37 @@
+<div class="content-section" ng-init="vm.getInitialData()">
+    <div class="container-fluid" >
+        <div class="roster-page">
+            <div class="row">
+
+                <div class="col-sm-12">
+                    <h3 class="dataTable-heading addBtn-btn">Roster Plan
+                    <button class="btn btnAdd-route" ui-sref="page.roasterUpdate"> <i class="fa fa-plus" aria-hidden="true"></i></button></h3>
+
+                    
+                    <div class="row">
+                        <div class="col-sm-8 col-sm-offset-2">
+                            <div class="form-group flex-inline">
+                            <label class="empSearchLabel">Employee </label>
+                                <div class="mydata">
+                                <input  max="2" type="text" name="managername" list="managername" ng-model="vm.employee" class="form-control" placeholder="Enter Employee Name" ng-change="vm.employeeChanged(vm.employee)" required>
+                                <datalist id="managername">
+                                <option id="{{x.id}}"  value="{{x.firstName + '(' + x.empCode + ')'}}"
+                                ng-repeat="x in vm.employeeList track by $index"></option>
+                                </datalist>
+                                </div>
+                         
+                            </div>
+
+                            <div id='roster_calendar'></div>
+                            <ul class="roster-legend">
+                               <li ng-repeat="legend in vm.legendArr"><span ng-style="{'background-color':legend.color}"></span> {{legend.type}} </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                    
+               
+            </div>
+        </div>
+    </div>
+</div>

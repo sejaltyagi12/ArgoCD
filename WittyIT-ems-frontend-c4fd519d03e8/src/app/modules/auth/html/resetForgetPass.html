@@ -1,0 +1,57 @@
+<div class="backgroundBanner full-height">
+  <div class="login-page-div">
+    <div class="login-page login-page-form">
+      <div class="text-center">
+        <div class="zeus-login"><img src="{{vm.constantValues.portalLogoPath}}" alt="LOGO" class="img-responsive"></div>
+      </div>
+      <div class="form forgotPass">
+        <form class="login-form" name="changePassForm" novalidate>
+          <div class="form-group" ng-init="vm.flag=true">
+            <input class="form-control" ng-class="{'errPassBorder': (changePassForm.password.$error.minlength 
+                          || changePassForm.password.$error.pattern || changePassForm.password.$error.required) &&changePassForm.$submitted}" type="password" name="password" placeholder="New Password" ng-model="vm.changePassData.newPassword" ng-minlength="8" ng-maxlength="20" ng-pattern="/(?=.*[a-z])(?=.*[A-Z])/"  ng-tooltip 
+                    minlen="changePassForm.password.$error.minlength" pattern="changePassForm.password.$error.pattern" ng-mouseleave="conditionTooltip=false" required/>
+            <div id="tooltipcontent"></div>
+
+            <input type="password"  class="form-control relative" ng-class="{'errPassBorder': changePassForm.re_password.$error.required  && changePassForm.$submitted}" name="re_password" placeholder="Confirm Password" ng-model="vm.repeat_pass" valid-password-c="vm.changePassData.newPassword" required/>
+          </div>
+          <button style="width:100%; background-color: #11597f;" type="submit"  ng-click="changePassForm.$valid && vm.changePass();">submit</button>
+        </form>
+         <p style="margin :10px 0px 0px 0px;" ng-show="changePassForm.$submitted && !changePassForm.re_password.$error.required 
+                              && !changePassForm.password.$error.minlength && 
+                              !changePassForm.password.$error.pattern && changePassForm.re_password.$error.noMatch" class="reqErr"> Passwords do not match.</p>
+        <br>
+      </div>
+      
+    </div>
+
+  </div>
+</div>
+
+<!-- AlertModal -->
+
+<div class="modal" id="forgetPass-modal" >
+    <div class="modal-dialog modal-sm modal-alert">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div ng-if="vm.formSubmitted" class="alert alert-success" role="alert" width="100%">
+                    Password has been reset successfully
+                </div>
+                <div ng-if="vm.formSubmitted==false && vm.message==undefined" class="alert alert-danger" role="alert" width="100%">
+                    Unable to process your request. Please retry or contact system admin
+                </div>
+
+                <div ng-if="vm.formSubmitted==false && vm.message != undefined && vm.message !=''" class="alert alert-danger" role="alert" width="100%">
+                    {{vm.message}}
+                </div>
+                
+                <button type="button" class="btn mt-10" data-dismiss="modal" style="color:#000" ui-sref="page.login">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+

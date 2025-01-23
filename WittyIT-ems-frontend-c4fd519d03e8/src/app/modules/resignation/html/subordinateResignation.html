@@ -1,0 +1,122 @@
+<div class="container-fluid" ng-init="vm.getInitialData()">
+    <!-- <div class="content-section content-background"> -->
+        <div class="team-resignation-page">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="dataTable-heading">Team's Resignation</h3>
+                    <!-- <div class="form-group mb-25 manageLeave"> -->
+                        <div class="table-responsive">
+
+                            <table class="table addLeftBorder" datatable="ng" dt-options="vm.dtOptions" dt-column-defs="vm.dtColumnDefs" class="row-border hover mb-10" ng-if="vm.teamResignationData.length> 0">
+                                <thead>
+                                <tr >
+                                    <th >S.No</th>
+                                    <th>Emp Code</th>
+                                    <th>Name</th>
+                                    <th>Resignation Date</th>
+                                    <th>Last Day</th>
+                                    <th>Type of Exit</th>
+                                    <th>Reason</th>
+                                    <th>Notes</th>
+                                    <th>Manager Status</th>
+                                    <th>Hr Status</th>
+                                    <th>Re Hire</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr  ng-repeat="resign in vm.teamResignationData track by $index">
+                                    
+                                    <td>{{$index+1}}</td>
+                                    <td>{{resign.employeeCode}}</td>
+                                    <td>{{resign.employeeName}}</td>
+                                    <td>{{resign.resignationDate}}</td>
+                                    <td>{{resign.lastDay}}</td>
+                                    <td>{{resign.type.type}}</td>
+                                    <td>{{resign.reason.reason}}</td>
+                                    <td>
+                                            <div class="comment-hover" ng-if="resign.resignationText.length>0" >
+                                                    <P>   {{resign.resignationText.substring(0,30)}}<span ng-if="resign.resignationText.length>30">...</span></P>
+                                                    <div class="commentText" style="left:-80px ; word-break: break-all;padding: 5px !important" ng-class ="{'change-width-size':(resign.resignationText.length>60)}">
+                                                        <p >{{resign.resignationText}}</p>
+                                                    </div>
+                                                </div>
+                                     
+                                    </td>
+                                    <td>
+                                        <!-- <p ng-if="(vm.user === 'admin' || ((vm.department  === 'human resource' || vm.department === 'hr'|| vm.departmentName === 'hr dept' ) && (vm.designationName !== 'hr trainee' && vm.designationName !== 'hr recruiter associate' && vm.designationName !== 'hr generalist associate')))">{{resign.managerStatus}}</p>
+
+                                        <p ng-if="(vm.user !== 'admin' || ((vm.department === 'human resource' || vm.department === 'hr' || vm.departmentName === 'hr dept') && (vm.designationName === 'hr trainee' || vm.designationName === 'hr recruiter associate' || vm.designationName === 'hr generalist associate')))">
+                                            <b><a ui-sref="page.subordinateResignationDetail({id: resign.id , view:''})" >{{resign.managerStatus}}</a></b>
+                                        </p> -->
+                                        <p ng-if=" (vm.designationName !=='project manager')">
+                                                {{resign.managerStatus}}</p>
+    
+                                            <p ng-if="(vm.designationName ==='project manager' )">
+                                                <b><a ui-sref="page.subordinateResignationDetail({id: resign.id , view:''})" >{{resign.managerStatus}}</a></b>
+                                            </p>
+                                    </td>
+
+                                    <td>
+                                        <!-- <p ng-if="(vm.user !== 'admin' || ((vm.department === 'human resource' || vm.department === 'hr' || vm.departmentName === 'hr dept') && (vm.designationName === 'hr trainee' || vm.designationName === 'hr recruiter associate' || vm.designationName === 'hr generalist associate')))">{{resign.hrStatus}}</p>
+
+                                        <p ng-if="(vm.user === 'admin' || ((vm.department  === 'human resource' || vm.department === 'hr'|| vm.departmentName === 'hr dept' ) && (vm.designationName !== 'hr trainee' && vm.designationName !== 'hr recruiter associate' && vm.designationName !== 'hr generalist associate')))">
+                                        <b><a ui-sref="page.subordinateResignationDetail({id: resign.id , view:''})">{{resign.hrStatus}}</a></b>
+                                        </p> -->
+                                        <p ng-if="(vm.designationName === 'project manager')">{{resign.hrStatus}}</p>
+
+                                        <p ng-if="(vm.designationName !=='project manager')">
+                                        <b><a ui-sref="page.subordinateResignationDetail({id: resign.id , view:''})">{{resign.hrStatus}}</a></b>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        
+                                        <button class="btn primary-btn" ng-click="vm.reHire(resign.employeeCode)" ng-disabled="!resign.reHired"
+                                        ng-if="resign.managerStatus==='APPROVED'">
+                                            {{resign.reHired ? 'ReHire' : 'ReHired'}}</button>
+                                      </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <div  ng-if="vm.teamResignationData.length <= 0" style="text-align:center">
+                               <h4>No data available</h4>
+                            </div>
+
+                        </div>
+                    <!-- </div> -->
+                </div>
+            </div>
+        </div>
+    <!-- </div> -->
+</div>
+<div class="modal" id="item-modal">
+    <div class="modal-dialog modal-sm modal-alert">
+        <div class="modal-content" style="
+        width: 360px;
+        height: 232px;">
+            <div class="modal-body">
+                <div role="alert">
+                    <div class="alert alert-warning" role="alert" width="100%">
+                        Are you sure you want to rehire the employee?
+                    </div>
+                    <div class="form-group">
+                        <label>Date of Re Hire</label>
+                        <input ng-class="{'highlightErr': registrationForm.joiningDate.$error.required 
+                                                && (registrationForm.$submitted)}"
+                                                    ng-disabled="vm.isUserNotEditableField === true"
+                                                    ng-model="vm.registrationData.joiningDate" datepicker=""
+                                                    ng-change="dateChanged(vm.registrationData.joiningDate)"
+                                                    name="joiningDate" is-registration-account="true" type="text"
+                                                    class="form-control" placeholder="Enter Date of Re joining"
+                                                    readonly="readonly" required />
+                                                    
+                    </div>
+                </div>
+                <button type="button" class="btn mt-10" data-dismiss="modal" style="color:#000"
+                ng-disabled="!vm.registrationData.joiningDate">Yes</button>
+                <button type="button" class="btn mt-10" data-dismiss="modal" style="color:#000">No</button>
+                <!-- <button type="button" class="btn mt-10" ng-click="vm.cancelRehire()" style="color:#000">No</button> -->
+            </div>
+        </div>
+    </div>
+</div>

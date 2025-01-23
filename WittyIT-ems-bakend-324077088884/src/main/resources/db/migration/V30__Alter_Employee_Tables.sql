@@ -1,0 +1,4 @@
+ALTER TABLE employee ADD COLUMN nationality VARCHAR(50);
+ALTER TABLE employee ADD COLUMN religion VARCHAR(50);
+ALTER TABLE employee ADD COLUMN hobbies VARCHAR(100);
+ALTER TABLE employee ADD COLUMN marital_status VARCHAR(100) NOT NULL;

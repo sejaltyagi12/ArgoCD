@@ -1,0 +1,68 @@
+<div class="content-section "> 
+    <div class="container-fluid"> 
+        <div class="notification-list-page">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="dataTable-heading">Notification</h3>
+                    <div class="col-md-6 col-md-offset-3">
+                        <form name="notificationForm" novalidate>
+
+                            <div class="form-group">
+                                <label>From</label><span style="color:red;">*</span>
+                                <input ng-class="{'highlightErr': notificationForm.from.$error.required && notificationForm.$submitted}" class="form-control" ng-model="vm.notification.from" maxlength ="30" name="from" placeholder="" required>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label>Message</label><span style="color:red;">*</span>
+                                <textarea type="text"  ng-class="{'highlightErr': notificationForm.text.$error.required
+                                    && notificationForm.$submitted}" style="height: 85px !important;" class="form-control" name="text" ng-model="vm.notification.text"  maxlength="200" placeholder="" required></textarea>
+                            </div>
+
+                         
+                             <div class="form-group">
+                                  <label>Expiry Date</label><span style="color:red;">*</span>
+                                  <input type="text" style="margin-bottom: 20px; " ng-class="{'highlightErr': notificationForm.fromDate.$error.required
+                                    && notificationForm.$submitted}" class="form-control" name="fromDate"  ng-model="vm.notification.expiryDate" datepicker="" is-employee-min-date="true" is-holiday-account="true" readonly="readonly"  required>
+                              </div>
+                       
+
+                            <div class="text-center ">
+                                <button  type="submit" class="btn primary-btn width-70"
+                                        ng-click="notificationForm.$valid && vm.notificationSubmit();">Send</button>
+
+                                <button type="button" class="btn primary-btn width-70"
+                                        ng-click="vm.goToPreviousPage()">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Alert Modal -->
+
+
+<div class="modal" id="notification-modal" >
+    <div class="modal-dialog modal-sm modal-alert">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div ng-if="vm.formSubmitted " class="alert alert-success" role="alert" width="100%">
+                    Successfully send the Notification
+                </div>
+
+                <div ng-if="vm.formSubmitted==false && vm.message==undefined" class="alert alert-danger" role="alert" width="100%">
+                    Unable to process your request. Please retry or contact system admin
+                </div>
+
+                <div ng-if="vm.formSubmitted==false && vm.message != undefined && vm.message !=''" class="alert alert-danger" role="alert" width="100%">
+                    {{vm.message}}
+                </div>
+                
+                <button type="button" class="btn mt-10" data-dismiss="modal" style="color:#000" ng-click="vm.notification = null;">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>

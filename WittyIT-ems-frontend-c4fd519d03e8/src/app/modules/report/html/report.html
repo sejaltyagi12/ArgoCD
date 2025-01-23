@@ -1,0 +1,55 @@
+<div class="content-section" ng-init="vm.initial()">
+    <div class="container-fluid">
+        <div class="card-view">
+            <div class="report-page">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3 ng-if="vm.reportType=='leave'" class="dataTable-heading">Leave Report</h3>
+                        <h3 ng-if="vm.reportType=='joinee'" class="dataTable-heading">Joinee Report</h3>
+                        <div class="col-md-8 col-md-offset-2">
+                            <p ng-if="leaveForm.$submitted" style="text-align:center;" class="reqErr"> {{vm.message}}
+                            </p>
+                            <form id="reportForm" name="reportForm" novalidate>
+                                <div class="row">
+
+                                    <div class="col-md-6">
+                                        <div class="form-group flex-inline">
+                                            <label class="margin-rtb-6">From </label>
+                                            <input type="text" ng-class="{'highlightErr': reportForm.fromDate.$error.required
+                                          && reportForm.$submitted}" class="form-control" name="fromDate"
+                                                ng-model="vm.reportForm.fromDate" datepicker="" is-report-account="true"
+                                                initiate-id="toDate" ng-change="vm.reportForm.toDate=''"
+                                                readonly="readonly" required>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6" ng-if="vm.reportForm.fromDate != null">
+                                        <div class="form-group flex-inline">
+                                            <label class="margin-rtb-6">To</label>
+                                            <input type="text" id="toDate" ng-class="{'highlightErr': reportForm.toDate.$error.required 
+                                          && reportForm.$submitted}" class="form-control" name="toDate"
+                                                ng-model="vm.reportForm.toDate" datepicker=""
+                                                min-date="{{vm.reportForm.fromDate}}" is-report-account="true"
+                                                readonly="readonly" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div>
+                                            <button type="submit" ng-hide="vm.showLoadingButton==true"
+                                                class="btn primary-btn "
+                                                ng-click="reportForm.$valid && vm.downloadReport(vm.reportForm.fromDate, vm.reportForm.toDate);">Download</button>
+                                            <button style="background-color:#41bd52 !important;"
+                                                ng-show="vm.showLoadingButton" class="btn btn-primary"><i
+                                                    class="fa fa-spinner fa-spin"></i> Loading</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

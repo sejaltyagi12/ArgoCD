@@ -1,0 +1,80 @@
+<div class="content-section" ng-init="vm.getDepartmentList()">
+    <div class="container-fluid">
+        <div class="department-list-page">
+            <div class="row">
+                <div class="col-md-10">
+                    <h3 class="dataTable-heading addBtn-btn">Department List
+                        <button class="btn btnAdd-route" ui-sref="page.AddDepartment"> <i class="fa fa-plus"
+                                aria-hidden="true"></i></button>
+                    </h3>
+
+
+                    <div class="card-view">
+                        <table datatable="ng" class="table table-bordered" dt-options="vm.dtOptions"
+                            dt-column-defs="vm.dtColumnDefs" class="row-border hover mb-10"
+                            ng-if="vm.departmentList.length > 0">
+                            <thead>
+                                <tr>
+                                    <th style="display:none"></th>
+                                    <th class="relative">DeptId</th>
+                                    <th class="relative">DeptName</th>
+                                    <th class="relative">Action</th>
+                                    <th style="display:none"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in vm.departmentList track by $index">
+                                    <td style="display:none"></td>
+                                    <td>{{item.deptId}}</td>
+                                    <td>{{item.deptName}}</td>
+                                    <td>
+                                        <div style="width:85px;" class="btn-group btn-group-sm emplActBtn">
+                                            <button type="button" class="btn btn-action dropdown-toggle"
+                                                data-toggle="dropdown">
+                                                ACTION<span class="caret ml-5"></span>
+                                            </button>
+                                            <ul class="dropdown-menu left-m15" role="menu">
+                                                <li>
+                                                    <a ui-sref="page.UpdateDepartment({deptId: item.deptId})">Edit</a>
+                                                </li>
+                                                <li style="cursor:pointer;">
+                                                    <a ng-click="vm.deleteDepartment(item.deptId,$index)">Delete</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                    <td style="display:none"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div ng-if="vm.departmentList.length <= 0" style="text-align:center">
+                            <h4>No data available</h4>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--AlertModal -->
+
+<div class="modal" id="department-modal">
+    <div class="modal-dialog modal-sm modal-alert">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div role="alert" width="100%">
+
+                    <div ng-if="(vm.formSubmitted==false && vm.message==undefined) ||(vm.formSubmitted==false && vm.message != undefined && vm.message !='')"
+                        class="alert alert-danger" role="alert" width="100%">
+                        This department is associated with designations and an employee, please remove the association
+                        to delete it.
+                    </div>
+
+                </div>
+                <button type="button" class="btn mt-10" data-dismiss="modal" style="color:#000">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>

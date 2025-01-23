@@ -1,0 +1,33 @@
+{
+  "name": "witty-ems",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "bower": "^1.8.0",
+    "express": "^4.15.4",
+    "file-system": "^2.2.2",
+    "gulp": "^4.0.2",
+    "moment": "^2.22.2"
+  },
+  "devDependencies": {
+    "del": "^6.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-inject": "^4.2.0",
+    "gulp-install": "^1.1.0",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-rename": "^1.2.2",
+    "gulp-shell": "^0.6.3",
+    "gulp-uglify": "^3.0.2",
+    "gulp-util": "^3.0.8",
+    "light-server": "^2.9.1"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "create-build": "gulp build",
+    "build": "light-server -s build -o"
+  },
+  "author": "",
+  "license": "ISC"
+}

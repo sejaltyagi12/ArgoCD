@@ -1,0 +1,37 @@
+<div class="content-section" ng-init = "vm.initialData()">
+    <div class="container-fluid">
+        <div class="rating-management-page">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="dataTable-heading addBtn-btn">Rating Management<button class="btn btnAdd-route" ng-click="vm.targetRatingUpdate()"> <i class="fa fa-plus" aria-hidden="true"></i></button></h3>
+
+                    
+                        <div class="table-responsive">
+                            <table datatable="ng" class="table" dt-options="vm.dtOptions" dt-column-defs="vm.dtColumnDefs" class="row-border hover mb-10" ng-if="vm.ratingList.length > 0">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th class="relative serial_num">S.No.<span class="border-left"></span</th>
+                                        <th>Rating Description</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in vm.ratingList track by $index">
+                                        <td></td>
+                                        <td>{{$index + 1}}</td>
+                                        <td>{{item.des}}</td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div  ng-if="vm.ratingList.length <= 0" style="text-align:center">
+                               <h4>No data available</h4>
+                            </div>
+                        </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

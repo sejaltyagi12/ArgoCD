@@ -1,0 +1,147 @@
+<toaster-container></toaster-container>
+<div class="content-section"  ng-init="vm.getInitialData()">
+	<div class="container-fluid">
+    	<div class="table-responsive" ng-if="vm.currentBreakDown !== '' && vm.formSubmitted">
+    	   <div class="payslip-form">
+    	    
+                <div class="payslip-page">
+             		<div class="row">
+             			<div class="col-xs-4 col-sm-4">
+             				<div class="logo-div">
+             					<img src="content/img/paySlip-logo.png" alt="not_found">
+             				</div>
+             			</div>
+             			<div class="col-xs-8 col-sm-8">
+             			   <div class="address-div">
+                 			   <p class="company-title">{{vm.currentBreakDown.campanyName}}</p>
+                 			   <p>{{vm.currentBreakDown.campanyAddress1}}</p>
+                 			   <p>{{vm.currentBreakDown.campanyAddress2}}</p>
+                 			   <p>Contact : {{vm.currentBreakDown.campanyContactNumber}}</p>
+                 			   <p class="cin-no"><b>CIN NO : {{vm.currentBreakDown.campanyCINNum}}</b></p>
+             			   </div>
+             			</div>
+             		</div>
+             		<h4 class="payslip-title">Payslip for the month of {{vm.currentBreakDown.paySlipMonth}}</h4>
+
+             		<div>
+             			<table class="table table-bordered payslip-details-table">
+             				<tbody>
+             					<tr>
+             						<td class="emp-details">
+             							<p>EMP ID : {{vm.currentBreakDown.employeeCode}}</p>
+             							<p>NAME : {{vm.currentBreakDown.employeeName}}</p>
+             							<p>DATE OF JOINING : {{vm.currentBreakDown.joiningDate}}</p>
+             							<p>BANK : {{vm.currentBreakDown.bankName}}</p>
+             							<p>BANK A/C NO : {{vm.currentBreakDown.bankAccountNumber}}</p>
+             							<p>LOCATION : {{vm.currentBreakDown.location}}</p>
+             						</td>
+             						<td class="emp-details">
+             							<p>PAN NO : {{vm.currentBreakDown.panNumber}}</p>
+             							<p>EPF UAN NO : {{vm.currentBreakDown.uanNumber}}</p>
+             							<p>MONTH DAYS : {{vm.currentBreakDown.monthDays}}</p>
+             							<p>PAID DAYS : {{vm.currentBreakDown.paidDays}}</p>
+             							<p>DESIGNATION : {{vm.currentBreakDown.designation}}</p>
+             						</td>
+             					</tr>
+             					<tr>
+             						<td style="text-align:center"><p><b>EARNINGS</b></p></td>
+             						<td style="text-align:center"><p><b>DEDUCTIONS</b></p></td>
+             					</tr>
+             					<tr>
+             						<td>
+             						   <table class="table inner-table">
+                 						   	<tbody>
+                 						   		<tr>
+                 						   			<td><p>BASIC SALARY</p></td>
+                 						   			<td><p class="text-right">{{vm.currentBreakDown.basicSalary}}</p></td>
+                 						   		</tr>
+                 						   		<tr>
+                 						   			<td><p>HRA</p></td>
+                 						   			<td><p class="text-right">{{vm.currentBreakDown.hra}}</p></td>
+                 						   		</tr>
+                 						   		<tr>
+                 						   			<td><p>TRANSPORT ALLOWANCES</p></td>
+                 						   			<td><p class="text-right">{{vm.currentBreakDown.transportAllowances}}</p></td>
+                 						   		</tr>
+                 						   		<tr>
+                 						   			<td><p>SPECIAL ALLOWANCES</p></td>
+                 						   			<td><p class="text-right">{{vm.currentBreakDown.specialAllowances}}</p></td>
+                 						   		</tr>
+                 						   	</tbody>
+             						   </table>
+             						</td>
+             						<td>
+             						    <table class="table inner-table">
+                 						   	<tbody>
+                 						   		<tr>
+                 						   			<td><p>PROVIDENT FUND</p></td>
+                 						   			<td><p class="text-right">{{vm.currentBreakDown.pf}}</p></td>
+                 						   		</tr>
+                 						   		<tr>
+                 						   			<td><p>ESI</p></td>
+                 						   			<td><p class="text-right">{{vm.currentBreakDown.esi}}</p></td>
+                 						   		</tr>
+                 						   		<tr>
+                 						   			<td><p>INCOME TAX</p></td>
+                 						   			<td><p class="text-right">{{vm.currentBreakDown.tds}}</p></td>
+                 						   		</tr>
+                 						   		<tr>
+                 						   			<td><p>LEAVE</p></td>
+                 						   			<td><p class="text-right">{{vm.currentBreakDown.leave}}</p></td>
+                 						   		</tr>
+                 						   		<tr>
+                 						   			<td><p>OTHER DEDUCTIONS</p></td>
+                 						   			<td><p class="text-right">{{vm.currentBreakDown.otherDeductions}}</p></td>
+                 						   		</tr>
+                 						   		<tr>
+                 						   			<td><p>LOAN</p></td>
+                 						   			<td><p class="text-right">{{vm.currentBreakDown.loan}}</p></td>
+                 						   		</tr>
+                 						   	</tbody>
+             						   </table>
+             						</td>
+             					</tr>
+             					<tr>
+             						<td>
+                                       <table class="table inner-table mb-0">
+                 						   	<tbody>
+                 						   		<tr>
+                 						   			<td><p>TOTAL EARNINGS</p></td>
+                 						   			<td><p class="text-right">{{vm.currentBreakDown.totalEarning}}</p></td>
+                 						   		</tr>
+                 						   	</tbody>
+             						   </table>
+             						</td>
+             						<td>
+                 						<table class="table inner-table mb-0">
+                 						   	<tbody>
+                 						   		<tr>
+                 						   			<td><p>TOTAL DEDUCTIONS</p></td>
+                 						   			<td><p class="text-right">{{vm.currentBreakDown.totalDeduction}}</p></td>
+                 						   		</tr>
+                 						   	</tbody>
+             						   </table>
+             						</td>
+             					</tr>
+             					<tr>
+             						<td colspan="2"><p>NET PAY : {{vm.currentBreakDown.netPay}}</p></td>
+             					</tr>
+             				</tbody>
+             			</table>
+             		</div>
+
+             		<div class="footer-text">
+             		   <p><b><em>*This is a computer generated payslip and does not require any authorized signature and seal.</em></b></p>
+             		</div>
+
+             	</div>
+         	</div>
+        </div>
+        <div ng-if="(vm.currentBreakDown === '' || vm.formSubmitted === false)" style="text-align:center">
+            <h4>No data available</h4>
+        </div>
+    </div>
+	    <!-- /#page-wrapper -->	
+</div>
+    <!-- /.container-fluid -->
+	    

@@ -1,0 +1,96 @@
+<div class="content-section" ng-init="vm.initialData()">
+    <div class="container-fluid" >
+        <div class="target-management-page">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="dataTable-heading addBtn-btn">Targets/Goals<button class="btn btnAdd-route" ng-click="vm.targetUpdate()"> <i class="fa fa-plus" aria-hidden="true"></i></button></h3>
+                  
+                        <div class="table-responsive target_management"  style="overflow-x:inherit !important">
+                            <table datatable="ng" class="table" dt-options="vm.dtOptions" dt-column-defs="vm.dtColumnDefs" class="row-border hover" ng-if="vm.array.length > 0">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th class="relative">S.No<span class="border-left"></span></th> 
+                                    <th class="relative">Target Category<span class="border-left"></span></th>
+                                    <th class="relative">Target Order<span class="border-left"></span></th>
+                                    <th class="relative">Target/Goal<span class="border-left"></span></th>
+                                    <th class="relative">Target Description<span class="border-left"></span></th>
+                                    <th class="relative" style=" width: 70px;">Target Rating<span class="border-left"></span></th>
+                                    <th>Action</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in vm.array track by $index">
+                                        <td></td>
+                                        <td>{{$index + 1}}</td>
+                                        <td>{{item.category}}</td>
+                                        <td>{{item.question.order}}</td>
+                                        <td>{{item.question.name}}</td>
+                                        <td>{{item.question.description}}</td>
+                                        <td>
+                                            <div  class="rating-tooltip"><i class="fa fa-info-circle " aria-hidden="true"></i>
+                                                <span class="tooltiptext">
+                                                            <p class="mb-0" ng-repeat="x in item.rating">{{x.order + "- " +x.description}}</p>
+                                                </span>
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <div style="width:85px;" class="btn-group btn-group-sm emplActBtn">
+                                                <button type="button" class="btn btn-action dropdown-toggle"  data-toggle="dropdown">
+                                                ACTION<span class="caret ml-5"></span>
+                                                    <span class="sr-only">Split button!</span>
+                                                </button>
+                                                <ul class="dropdown-menu left-m15"  role="menu" style="cursor:pointer;">
+                                                    <li>
+                                                        <a ng-click="vm.targetUpdate(item.question.id)">Edit</a>
+                                                    </li>
+                                                    <li>
+                                                        <a ng-click="vm.targetDelete(item.question.id)">Delete</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+
+                               
+                            </table>
+                              <div  ng-if="vm.array.length <= 0" style="text-align:center">
+                               <h4>No data available</h4>
+                            </div>
+                        </div>
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+                                    <!-- AlertModal -->
+
+                                        <div class="modal" id="target-modal" >
+                                            <div class="modal-dialog modal-sm modal-alert">
+                                                <div class="modal-content">
+                                                    <div class="modal-body">
+                                                        <div ng-if="vm.formSubmitted" class="alert alert-success" role="alert" width="100%">
+                                                           Target Deleted Successfully
+                                                        </div>
+
+                                                        
+                                                        <div ng-if="vm.formSubmitted==false && vm.message==undefined" class="alert alert-danger" role="alert" width="100%">
+                                                          Unable to process your request. Please retry or contact system admin
+                                                        </div>
+
+                                                        <div ng-if="vm.formSubmitted==false && vm.message != undefined && vm.message !=''" class="alert alert-danger" role="alert" width="100%">
+                                                            {{vm.message}}
+                                                        </div>
+                                                        
+                                                        <button type="button" class="btn mt-10" data-dismiss="modal" style="color:#000">Ok</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>

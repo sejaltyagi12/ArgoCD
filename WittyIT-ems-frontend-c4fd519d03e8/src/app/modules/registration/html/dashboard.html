@@ -1,0 +1,155 @@
+<div class="container-fluid" ng-init="vm.getDashboardEmployeeData();vm.startTimer()">
+  <div class="content-section">
+    <div class="profile-description-row">
+
+      <div class="profile-desc-col">
+        <div class="grid">
+          <div class="md">
+            <div class="profile-image relative" style="max-width: 175px;">
+              <img ng-if="!vm.imageSelected && !vm.displayCroppedImg" on-error-src="content/img/default_profile.jpg"
+                ng-src="{{vm.getEmployeeData.avatarCompleteUrl != null && vm.getEmployeeData.avatarCompleteUrl != '' && vm.getEmployeeData.avatarCompleteUrl != undefined? vm.getEmployeeData.avatarCompleteUrl + '?x=' + vm.timeStamp: 'content/img/default_profile.jpg'}}"
+                class="img-responsive">
+
+              <img ng-if="vm.imageSelected && vm.displayCroppedImg" ng-if="vm.displayCroppedImg"
+                ng-src="{{ vm.profilePic }}" class="img-responsive" />
+
+              <img-crop ng-if="vm.imageSelected && !vm.displayCroppedImg" image="vm.myImage"
+                result-image="vm.myCroppedImage" area-type="square"></img-crop>
+              <div ng-class="{'overly': !vm.imageSelected || vm.picCropped}">
+                <div class="position-center">
+                  <span class="addPicture">
+                    <input ng-show="!vm.imageSelected" type="file" id="fileInput" title="Choose file" />
+                    <i ng-if="!vm.imageSelected" class="fa fa-camera"></i>
+                  </span>
+                  <span class="uploadIcon" ng-click="vm.upload()">
+                    <i ng-if="vm.imageSelected && vm.picCropped" class="fa fa-upload"></i>
+                  </span>
+                  <span class="cancelUpload" ng-click="vm.cancelCrop()">
+                    <i ng-if="vm.imageSelected && vm.picCropped" class="fa fa-times"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="text-center">
+              <h4 class="text-center">
+                <b>{{vm.getEmployeeData.firstName + " "+vm.getEmployeeData.middleName+" " +
+                  vm.getEmployeeData.lastName}}</b>
+              </h4>
+
+              <div ng-if="vm.validExtension != undefined && !vm.validExtension" class="reqErr">File must be gif,jpg,jpeg
+                or png</div>
+              <div ng-if="vm.invalidSize" class="reqErr">Choose a file with appropriate dimensions</div>
+              <div>
+                <button ng-if="vm.imageSelected && !vm.displayCroppedImg" ng-click="vm.imageCropped()">Crop</button>
+                <button ng-if="vm.imageSelected && !vm.displayCroppedImg" ng-click="vm.cancelCrop()">cancel</button>
+              </div>
+            </div>
+          </div>
+          <div class="table-user-information">
+            <div ng-repeat="(key,val) in vm.mapEmpData">
+              <label class="profileData">{{key}}:</label>
+              <div class="profileDiscription">{{val}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="holiday-calendar">
+        <h4 class="card-title">
+          <b>Upcoming Holiday</b>
+        </h4>
+        <div class='holiday-container  holidayCarousel' ng-mouseover="vm.hoverEdit=true;"
+          ng-mouseleave="vm.hoverEdit=false;">
+          <ul id="holiday-slider">
+            <li holidaygallery ng-repeat="day in vm.holidayList track by $index">
+              <div class="holiday-slider-content">
+                <div class="holiday-header">
+                  <label class="holiday-label">{{day.holidayDate | uppercase }}</label>
+                </div>
+
+                <img
+                  ng-src="{{day.imageUrl != null && day.imageUrl != null ? day.imageUrl : 'content/img/holidayDefault.png'}}" />
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+
+    </div>
+
+
+
+    <div class="profile-description-row pt-0">
+      <div>
+        <div>
+
+          <h4 class="card-title">Upcoming Events</h4>
+
+          <ul class="upcoming-events-grid" ng-if="vm.birthdayList.length>0">
+            <li ng-repeat="item in vm.birthdayList track by $index">
+
+              <div class="userimage relative">
+                <img
+                  ng-src="{{item.avatarURL != null &&  item.avatarURL != '' ? item.avatarURL+ '?x=' + vm.timeStamp: 'content/img/default_profile.jpg'}}"
+                  alt="not found" class="bd_image">
+
+                <div class="overly" ng-if="item.empCode != vm.getEmployeeData.empCode">
+                  <div class="position-center">
+                    <div class="client-wish">
+                      <button class="btn btn-primary" type="button"
+                        ng-click="vm.sendWishes(item.id,item.firstName,item.eventType)">send wishes</button>
+                    </div>
+                  </div>
+                </div>
+                <p style="text-align:center;font-size: 10px;">
+                  <b>{{item.firstName + " " + item.lastName}}
+                    <br>{{item.eventDate | uppercase }}
+                    <!-- <br>{{item.anniversaryYear}} -->
+                    <br>{{item.anniversaryYear}} {{item.eventType}}
+                  </b>
+                </p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div>
+        <h4 class="card-title">Open positions at Wittybrains</h4>
+        <div id="notificationDiv">
+          <div class="news-scroll" ng-mouseover="vm.scrollspeed=0" ng-mouseleave="vm.scrollspeed=vm.current"
+            ng-init="vm.NewsScrollStart()">
+            <div id="NewsDiv">
+              <div class="scroll-text-if" ng-if="vm.notificationList.length > 0">
+                <span class="scroll-title-if" ng-repeat="item in vm.notificationList">
+                  {{item.text}}
+                  <br>
+                </span>
+              </div>
+            </div>
+            <span ng-if="vm.notificationList.length <= 0">
+              No notification available
+            </span>
+          </div>
+          <!-- END NEWS FEED -->
+          <div class="modal" id="wishAlert">
+            <div class="modal-dialog modal-sm modal-alert">
+              <div class="modal-content">
+                <div class="modal-body">
+                  <div role="alert" width="100%">
+                    {{vm.msg_bd + " " + vm.empName_bd }}
+                  </div>
+                  <button type="button" class="btn mt-10" data-dismiss="modal" style="color:#000">Ok</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

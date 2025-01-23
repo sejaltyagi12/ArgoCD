@@ -1,0 +1,76 @@
+<div ng-show="vm.paySlipUploaded==true " class="alert alert-success" role="alert" width="100%">
+  Salary uploaded successfully
+</div>
+<div ng-show="vm.paySlipUploaded==false && vm.message==undefined" class="alert alert-danger" role="alert" width="100%">
+Unable to process your request. Please retry or contact system admin
+</div>
+<div ng-show="vm.paySlipUploaded==false && vm.message !=''" class="alert alert-danger" role="alert" width="100%">
+{{vm.message}}
+</div>
+<div class="content-section ">
+    <div class="container-fluid" ng-init="vm.getInitialData1()">
+        <div class="salary-upload-page">
+            <div class="row">
+
+                <div class="col-md-12">
+                  <h3 class="dataTable-heading">Salary Upload</h3>
+                  <div class="text-center">
+                    <p ng-if="vm.validExtension != undefined && !vm.validExtension" class="reqErr">Please provide a file with valid extension(xlsx)
+                    </p>
+                    <p ng-if="vm.informed!=null" class="reqErr ">{{vm.informed}}</p>
+                  </div>
+                </div>
+                <form id="paySlipUploadForm" name="paySlipUploadForm" novalidate>
+                    <div class="col-sm-8 col-sm-offset-2 ">
+                        <div class="col-sm-4">
+                            <div class="form-group flex-inline">
+                                <label class="paySlipLabel">Month</label>
+                                <div class="full">
+                                    <select ng-class="{'highlightErr': salarySlipForm.type.$error.required 
+                                    && month.$submitted}" class="form-control  paySlip-select" ng-model="vm.month" ng-options="month for month in vm.monthList" name="month" required>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group flex-inline">
+                              <label class="paySlipLabel" style=" margin-top: 6px;margin-right: 5px;">Year</label>
+                              <div class="full">
+                                  <select ng-class="{'highlightErr': salarySlipForm.type.$error.required 
+                                  && year.$submitted}" class="form-control paySlip-select" ng-model="vm.year" ng-options="year for year in vm.yearList" name="year" required>
+                                  </select>
+                              </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group flex-inline rosterFileUpload ">
+                                <label class="paySlipLabel">Salary Excel</label>
+                                <div class="full">
+                                    <a class='btn btn-primary roaster-browse' href='javascript:;'>Browse...
+                                    <input type="file"  class="choose-file" name="file_source" id="rosterInput" onchange='$("#upload-file-info").html(document.getElementById("rosterInput").files[0].name);' required>
+                                    </a>&nbsp;
+                                    <span class='label label-info' id="upload-file-info"></span>
+                                </div>
+                            </div>
+                            <div>
+                            <strong class="note-info"><span style="font-size: 14px;color:#000;">Note:-</span>Salary Excel extension should be in .xlsx and xls</strong>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-12">
+                       <div class="text-center">
+                        <button type="submit" class="btn primary-btn width-70" ng-click="vm.upload()" style="margin-top:50px;">Upload</button>
+                        <button type="button" class="btn primary-btn width-70" style="margin-top:50px;" ng-click="vm.goToPreviousPage()">Cancel</button>
+                      </div>
+                    </div>
+                </form>
+                 
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

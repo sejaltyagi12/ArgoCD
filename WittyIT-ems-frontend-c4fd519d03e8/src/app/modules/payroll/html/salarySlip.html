@@ -1,0 +1,47 @@
+<div class="content-section" ng-init="vm.getInitialData()">
+    <div class="container-fluid">
+        <div class="salary-slip-page card-view">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="dataTable-heading">Payslips</h3>
+
+                    <div class="table-responsive">
+                        <table class="table" datatable="ng" dt-options="vm.dtOptions" dt-column-defs="vm.dtColumnDefs"
+                            class="row-border hover mb-10" ng-if="vm.paySlip.length > 0">
+                            <thead>
+                                <tr>
+                                    <th style="display:none"></th>
+                                    <th class="relative">S.No<span class="border-left"></span></th>
+                                    <th class="relative">Month<span class="border-left"></span></th>
+                                    <th class="relative">Year<span class="border-left"></span></th>
+                                    <th class="relative">Action</th>
+                                    <th style="display:none"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="paySlip in vm.paySlip track by $index">
+                                    <td style="display:none"></td>
+                                    <td>{{$index+1}}</td>
+                                    <td>{{paySlip.month}}</td>
+                                    <td>{{paySlip.year}}</td>
+                                    <td>
+                                        <button ng-hide="vm.showLoadingButton[$index]==true" type="button"
+                                            class="btn primary-btn"
+                                            ng-click="vm.downloadPaySlip($index,paySlip.id,paySlip.month,paySlip.year)">Download</button>
+                                        <button style="background-color:#41bd52 !important;"
+                                            ng-show="vm.showLoadingButton[$index]" class="btn btn-primary"><i
+                                                class="fa fa-spinner fa-spin"></i> Loading</button>
+                                    </td>
+                                    <td style="display:none"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div ng-if="vm.paySlip.length <= 0" style="text-align:center">
+                            <h4>No data available</h4>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>

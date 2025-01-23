@@ -1,0 +1,82 @@
+<div class="content-section" ng-init = "vm.initialData()">
+    <div class="container-fluid">
+        <div class="category-management-page">
+            <div class="row">
+    
+                <div class="col-md-12">
+                    <h3 class="dataTable-heading addBtn-btn">Category Management<button class="btn btnAdd-route" ng-click="vm.targetCategoryUpdate()"> <i class="fa fa-plus" aria-hidden="true"></i></button></h3>
+                    
+                        <div class="table-responsive" style="overflow-x: inherit !important;">
+                            <table datatable="ng" class="table" dt-options="vm.dtOptions" dt-column-defs="vm.dtColumnDefs" class="row-border hover mb-10" ng-if="vm.categoryList.length > 0">
+                                <thead>
+                                    <tr>
+                                        <th class="relative"></th>
+                                        <th class="relative serial_num">S.No.<span class="border-left"></span></th>
+                                        <th class="relative">Ordering<span class="border-left"></span></th>
+                                        <th class="relative">Category<span class="border-left"></span></th>
+                                        <th >Action</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in vm.categoryList track by $index">
+                                        <td></td>
+                                        <td>{{$index + 1}}</td>
+                                        <td ng-if="!vm.editable">{{item.orderIndex}}</td>
+                                         <td ng-if="vm.editable"><input value="{{item.orderIndex}}" /></td>
+                                        <td>{{item.name}}</td>
+                                        <td>
+                                            <div style="width:85px;" class="btn-group btn-group-sm emplActBtn" >
+                                           
+                                            <button type="button" class="btn btn-action dropdown-toggle"  data-toggle="dropdown">
+                                                ACTION<span class="caret ml-5"></span>
+                                            </button>
+                                            <ul class="dropdown-menu left-m15"  role="menu" style="cursor:pointer;">
+                                                <li>
+                                                    <a ng-click="vm.targetCategoryUpdate(item.id)">Edit</a>
+                                                </li>
+                                                <li>
+                                                    <a ng-click="vm.deleteCategory(item.id)" >Delete</a>
+                                                </li>
+                                            </ul>
+                                            </div>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                              <div  ng-if="vm.categoryList.length <= 0" style="text-align:center">
+                               <h4>No data available</h4>
+                            </div>
+                        </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- AlertModal -->
+
+<div class="modal" id="cat-modal" >
+    <div class="modal-dialog modal-sm modal-alert">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div ng-if="vm.formSubmitted" class="alert alert-success" role="alert" width="100%">
+                   Category deleted successfully
+                </div>
+
+                
+                <div ng-if="vm.formSubmitted==false && vm.message==undefined" class="alert alert-danger" role="alert" width="100%">
+                  Unable to process your request. Please retry or contact system admin
+                </div>
+
+                <div ng-if="vm.formSubmitted==false && vm.message != undefined && vm.message !=''" class="alert alert-danger" role="alert" width="100%">
+                    {{vm.message}}
+                </div>
+                
+                <button type="button" class="btn mt-10" data-dismiss="modal" style="color:#000">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
