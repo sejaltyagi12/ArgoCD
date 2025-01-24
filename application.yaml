@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata: 
+  name: wittyems-argo-application
+  namespace: argocd
+spec:
+  project: default
+
+  source: 
+    repoURL: https://github.com/sejaltyagi12/wittyems.git
+    targetRevision: HEAD
+    path: dev
+
+  destination: 
+    server: https://kubernetes.default.svc
+    namespace: default
+
+  syncPolicy: 
+    syncOptions: 
+    - CreateNamespace=true
+
+    automated:
+      self-heal=true
+      prune=true
