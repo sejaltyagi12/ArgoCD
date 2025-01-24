@@ -7,7 +7,7 @@ spec:
   project: default
 
   source: 
-    repoURL: https://github.com/sejaltyagi12/wittyems.git
+    repoURL: https://github.com/sejaltyagi12/ArgoCD.git
     targetRevision: HEAD
     path: dev
 
@@ -20,5 +20,5 @@ spec:
     - CreateNamespace=true
 
     automated:
-      self-heal=true
-      prune=true
+      self-heal: true
+      prune: true
