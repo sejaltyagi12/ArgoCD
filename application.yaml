@@ -8,7 +8,7 @@ spec:
 
   source: 
     repoURL: https://github.com/sejaltyagi12/ArgoCD.git
-    targetRevision: HEAD
+    targetRevision: main
     path: dev
 
   destination: 
