@@ -35,13 +35,13 @@ spec:
               key: mysql-database
         ports:
         - containerPort: 3306
-        volumeMounts:
-        - name: mysql-storage
-          mountPath: /var/lib/mysql
-        - name: mysql-storage
-          mountPath: /var/log/mysql
-        - name: mysql-config
-          mountPath: /etc/mysql/conf.d 
+        # volumeMounts:
+        # - name: mysql-storage
+        #   mountPath: /var/lib/mysql
+        # - name: mysql-storage
+        #   mountPath: /var/log/mysql
+        # - name: mysql-config
+        #   mountPath: /etc/mysql/conf.d 
 
       - name: sidecar-container
         image: busybox
@@ -53,15 +53,15 @@ spec:
           limits:
             cpu: "200m"
             memory: "256Mi"
-        volumeMounts:
-        - name: mysql-storage
-          mountPath: /var/log/mysql
+      #   volumeMounts:
+      #   - name: mysql-storage
+      #     mountPath: /var/log/mysql
 
-      volumes:
-      - name: mysql-storage
-        persistentVolumeClaim:
-          claimName: mysql-pvc
-      - name: mysql-config
-        configMap:
-          name: mysql-configmap
+      # volumes:
+      # - name: mysql-storage
+      #   persistentVolumeClaim:
+      #     claimName: mysql-pvc
+      # - name: mysql-config
+      #   configMap:
+      #     name: mysql-configmap
       
