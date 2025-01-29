@@ -1,6 +1,0 @@
---1 for super admin and 2 for default ceo
-DELETE FROM  `resignation` where `emp_id` in (1,2);
-DELETE FROM  `avatar` where `emp_id` in (1,2);
-DELETE FROM `employee` WHERE `id` in (1,2);
-
-INSERT INTO `employee` VALUES (1,'',1,'Super','Male','2009-01-01 00:00:01','','Admin','','2009-01-01 00:00:01',49,1,NULL,'','','','admin@witty.com',NULL,'','','','','',NULL,NULL,NULL,'','$2a$10$PZuDooE2jNDv4Zkc4l.upe/huJvpCqnwrZ4mEUJBvWiB4Pzd8vz2i',NULL,1,NULL,'2009-01-01 00:00:01',NULL,2,'\0',NULL,NULL,'\0',NULL,NULL,NULL,'Single',NULL,'2009-01-01 00:00:01'),(2,'EMP1',1,'Default','Male','2009-01-01 14:45:10',NULL,'CEO',NULL,'2009-01-01 14:45:10',49,2,'Noida','','','','ceo@wittybrains.com',NULL,'A-12, Sector-9, Near Metro Station 16, Noida, Uttar Pradesh 201301','A-12, Sector-9, Near Metro Station 16, Noida, Uttar Pradesh 201301','8000000000','8000000000',NULL,NULL,NULL,'A+','','$2a$10$PZuDooE2jNDv4Zkc4l.upe/huJvpCqnwrZ4mEUJBvWiB4Pzd8vz2i',NULL,2,1,'2009-01-01 14:45:10','2009-01-01 14:45:10',2,'\0',NULL,NULL,'\0','Indian',null,NULL,'Single',NULL,'2009-01-01 00:00:01');

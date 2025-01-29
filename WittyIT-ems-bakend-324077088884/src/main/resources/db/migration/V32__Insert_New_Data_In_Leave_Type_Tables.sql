@@ -1,1 +1,0 @@
-INSERT INTO `leave_type` VALUES (3,'Civil Duty Leave'),(4,'Privilege Leave'),(5,'Marriage Leave'),(6,'Maternity Leave'),(7,'Paternity Leave');

@@ -1,1 +1,0 @@
-UPDATE `resignation` SET `manager_status`='REJECTED', `hr_status`='REJECTED';
