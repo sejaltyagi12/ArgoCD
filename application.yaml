@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata: 
+  name: blog-website
+  namespace: argocd
+spec:
+  project: default
+
+  source: 
+    repoURL: https://github.com/sejaltyagi12/ArgoCD.git
+    targetRevision: HEAD
+    path: .
+
+  destination: 
+    server: https://kubernetes.default.svc
+    namespace: projects
+
+  syncPolicy: 
+    syncOptions: 
+    - CreateNamespace=true
+
+    automated:
+      selfHeal: true
+      prune: true
