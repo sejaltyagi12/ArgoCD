@@ -18,3 +18,11 @@ spec:
         image: sejaltyagi19/blog-website:17
         ports:
         - containerPort: 8002  # Assuming your backend listens on this port
+        resources:
+          requests:
+            memory: 200Mi
+            cpu: 100m
+          limits:
+            memory: 300Mi
+            cpu: 250m
+        
