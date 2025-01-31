@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blog-frontend-deployment
+  namespace: projects
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blog-frontend
+  template:
+    metadata:
+      labels:
+        app: blog-frontend
+    spec:
+      containers:
+        - name: blog-frontend-app
+          image: sejaltyagi19/blog-website:16
+          ports:
+            - containerPort: 80 # Assuming your frontend listens on port 80
+
+

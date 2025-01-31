@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata: 
+  name: blog-backend-service
+  namespace: projects
+spec:
+  type: LoadBalancer
+  ports:
+    - name: http
+      port: 8002      # External port for backend
+      targetPort: 8002  # Internal port for backend
+      # nodePort: 30002    # Optional: Specify a NodePort (between 30000-32767)
+  selector:
+    app: blog-backend

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blog-backend-deployment
+  namespace: projects
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blog-backend
+  template:
+    metadata:
+      labels:
+        app: blog-backend
+    spec:
+      containers:
+      - name: blog-backend-app
+        image: sejaltyagi19/blog-website:17
+        ports:
+        - containerPort: 8002  # Assuming your backend listens on this port
