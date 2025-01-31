@@ -1,3 +1,7 @@
 resources:
-  - frontend-deploy.yaml
-  - frontend-svc.yaml
+  - blog-frontend-deployment.yaml
+  - blog-frontend-service.yaml
+  - blog-backend-deployment.yaml
+  - blog-backend-service.yaml
+  - blog-mongo-statefulset.yaml
+  - blog-mongo-service.yaml
