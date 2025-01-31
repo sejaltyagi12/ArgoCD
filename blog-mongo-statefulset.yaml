@@ -20,9 +20,9 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 27017
-          volumeMounts:
-            - name: mongo-persistent-storage
-              mountPath: /mongo-data
+          # volumeMounts:
+          #   - name: mongo-persistent-storage
+          #     mountPath: /mongo-data
           env:
             - name: MONGO_INITDB_ROOT_USERNAME
               value: "root"
@@ -30,14 +30,14 @@ spec:
               value: "rootpassword"
             - name: MONGO_INITDB_DATABASE
               value: "blog-website"
-  volumeClaimTemplates:
-    - metadata:
-        name: mongo-persistent-storage
-      spec:
-        accessModes:
-          - ReadWriteOnce
-        resources:
-          requests:
-            storage: 5Gi
+  # volumeClaimTemplates:
+  #   - metadata:
+  #       name: mongo-persistent-storage
+  #     spec:
+  #       accessModes:
+  #         - ReadWriteOnce
+  #       resources:
+  #         requests:
+  #           storage: 5Gi
 
 
