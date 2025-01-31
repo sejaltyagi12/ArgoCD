@@ -10,5 +10,5 @@ spec:
     - name: http
       port: 3001  # External port
       targetPort: 80  # Internal port
-  type: LoadBalancer
-  loadBalancerIP: 10.96.0.2  # Static IP from MetalLB
+  type: ClusterIP
+  #loadBalancerIP: 10.96.0.2  # Static IP from MetalLB

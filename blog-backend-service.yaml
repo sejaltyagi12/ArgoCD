@@ -4,7 +4,7 @@ metadata:
   name: blog-backend-service
   namespace: projects
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - name: http
       port: 8002      # External port for backend
