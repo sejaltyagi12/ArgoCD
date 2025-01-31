@@ -3,5 +3,5 @@ resources:
   - blog-frontend-service.yaml
   - blog-backend-deployment.yaml
   - blog-backend-service.yaml
-  - blog-mongo-statefulset.yaml
+  - blog-mongo-deployment
   - blog-mongo-service.yaml
