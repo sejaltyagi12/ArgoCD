@@ -1,0 +1,3 @@
+kustomize:
+  images:
+  - sejaltyagi19/blog-website:17
